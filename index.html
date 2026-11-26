@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WolfOS Spatial Archive Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Spectral:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{color-scheme:dark;--edge:rgba(120,186,255,.55);--ink:#eef5ff;--dim:#c3d6ea;--gold:#e8b65a}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);font:16px/1.5 Spectral,Georgia,serif;background:#0b0805 url(tut-mask/room.jpg) center/cover fixed}
+body::before{content:"";position:fixed;inset:0;background:rgba(8,6,4,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);z-index:-1}
+header{text-align:center;padding:56px 20px 24px}
+h1{margin:0;font:700 clamp(34px,6vw,58px)/1.05 "Cormorant Garamond",Georgia,serif;color:#fff}
+.tag{margin:10px 0 0;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:14px}
+.intro{max-width:640px;margin:16px auto 0;color:var(--dim)}
+main{max-width:1100px;margin:0 auto;padding:16px 20px 64px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+a.card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(26,58,92,.7),rgba(12,30,52,.8));border:1.5px solid var(--edge);border-radius:12px;overflow:hidden;box-shadow:0 0 18px rgba(80,160,255,.22);transition:transform .2s,box-shadow .2s}
+a.card:hover,a.card:focus-visible{transform:translateY(-3px);box-shadow:0 0 28px rgba(80,160,255,.45);outline:none}
+a.card img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#120d08}
+.body{padding:14px 16px 18px}
+.body h2{margin:0;font:600 25px/1.1 "Cormorant Garamond",serif;color:#fff}
+.era{margin:4px 0 8px;color:var(--gold);font-size:13.5px}
+.body p{margin:0;color:var(--dim);font-size:14.5px}
+.go{margin-top:12px;font-weight:600;color:#bfe0ff}
+.empty{grid-column:1/-1;text-align:center;color:var(--dim)}
+footer{text-align:center;color:#8fa3b8;font-size:13px;padding:0 20px 32px}
+@media (prefers-reduced-motion:reduce){a.card{transition:none}a.card:hover{transform:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>WolfOS Spatial Archive Lab</h1>
+  <p class="tag">Explore · Analyze · Interpret · Connect</p>
+  <p class="intro">Pick an artifact. Turn it, zoom in, read what each part means, and think like a historian about what it tells us.</p>
+</header>
+<main id="grid"><p class="empty">Loading exhibits…</p></main>
+<footer>Mr. Wolfinger's history classes · 3D models are reconstructions made for teaching.</footer>
+<script>
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+fetch('exhibits.json', {cache:'no-cache'}).then(r => r.json()).then(list => {
+  const g = document.getElementById('grid');
+  if (!list.length) { g.innerHTML = '<p class="empty">No exhibits yet.</p>'; return; }
+  g.innerHTML = list.map(x => `<a class="card" href="${esc(x.folder)}/"><img src="${esc(x.thumb)}" alt="" loading="lazy"><div class="body"><h2>${esc(x.title)}</h2><p class="era">${esc(x.era)}</p><p>${esc(x.blurb)}</p><p class="go">Open the exhibit &rarr;</p></div></a>`).join('');
+}).catch(() => { document.getElementById('grid').innerHTML = '<p class="empty">The exhibit list didn\'t load. Refresh the page.</p>'; });
+</script>
+</body>
+</html>
