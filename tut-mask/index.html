@@ -97,6 +97,30 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
 @media (prefers-reduced-motion:reduce){.tip{transition:none}}
 @media (max-width:760px),(max-aspect-ratio:3/4){a.allx{position:static;display:block;width:max-content;margin:8px 10px 0;font-size:13px;padding:6px 10px}.mhead{padding-top:6px}}
 .allx{position:fixed;left:12px;top:12px;z-index:20;padding:7px 12px;border-radius:8px;background:rgba(12,30,52,.85);border:1px solid var(--edge);color:#eef5ff;text-decoration:none;font:600 14px/1 Spectral,serif}.allx:hover,.allx:focus-visible{background:rgba(40,80,130,.95);outline:none}
+.grow{margin-left:auto;flex:none;background:none;border:0;cursor:pointer;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;padding:0}
+.grow svg{width:18px!important;height:18px!important;stroke:#dbeaff;fill:none;stroke-width:2}
+.grow:hover,.grow:focus-visible{background:rgba(255,255,255,.14);outline:none}
+.grow+.x{margin-left:2px}
+.more{background:none;border:0;padding:0;color:#ffd98a;font:600 13px/1.3 Spectral,serif;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.more:hover,.more:focus-visible{color:#fff;outline:none}
+.panel{cursor:default}
+.reader{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:3vh 3vw;background:rgba(4,8,14,.55)}
+.reader[hidden]{display:none}
+.rcard{width:min(880px,100%);max-height:94vh;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(26,58,92,.96),rgba(10,26,46,.97));border:1.5px solid var(--edge);border-radius:14px;box-shadow:0 0 40px rgba(80,160,255,.4)}
+.rhead{display:flex;align-items:center;gap:10px;padding:16px 20px 10px;border-bottom:1px solid rgba(120,186,255,.25)}
+.rhead h2{margin:0;font:600 clamp(24px,3.2vw,34px)/1.1 "Cormorant Garamond",Georgia,serif;color:#fff}
+.rhead .x{font-size:30px;width:42px;height:42px}
+.rbody{overflow:auto;padding:16px 24px 24px;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:#e3eefa}
+.rbody h3{margin:1.1em 0 .3em;font:600 clamp(20px,2.2vw,25px)/1.2 "Cormorant Garamond",serif;color:#ffd98a}
+.rbody p,.rbody ul{margin:.4em 0}.rbody li{margin:.35em 0}.rbody b{color:#fff}
+.rimg{float:right;width:min(34%,230px);margin:4px 0 12px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.25)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.facts div{background:rgba(120,186,255,.1);border:1px solid rgba(120,186,255,.3);border-radius:8px;padding:8px 12px;font-size:.88em;line-height:1.4}
+.facts b{display:block;color:#ffd98a;font-size:.8em;letter-spacing:.08em;text-transform:uppercase}
+.rbody .src{font-size:.78em;color:#a9bdd2;margin-top:1.2em;clear:both}
+.rbody .irow{font-size:1em;padding:8px}.rbody .irow svg{width:30px;height:30px}
+.rbody #qs,.rbody ul.qs{padding-left:1.2em}
+@media (max-width:620px){.rimg{float:none;display:block;width:60%;margin:0 auto 12px}.facts{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -113,14 +137,14 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
   </div>
 
   <section class="panel" id="look">
-    <h2><svg viewBox="0 0 32 32"><path d="M4 12h24M6 12v13M11 12v13M16 12v13M21 12v13M26 12v13M3 27h26M5 12l11-7 11 7"/></svg>What am I looking at?</h2>
+    <h2><svg viewBox="0 0 32 32"><path d="M4 12h24M6 12v13M11 12v13M16 12v13M21 12v13M26 12v13M3 27h26M5 12l11-7 11 7"/></svg>What am I looking at?<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
     <div class="row"><img src="thumb.jpg" alt="The gold mask of Tutankhamun, front view">
       <div><h3>The Gold Mask of Tutankhamun (c. 1323 BCE)</h3>
-      <p>This funerary mask covered the face of the pharaoh's mummy inside the innermost of his three coffins. Made of gold inlaid with lapis lazuli, quartz, obsidian and glass, it shows the young king as a god, ready for the afterlife.</p></div></div>
+      <p>This funerary mask covered the face of the pharaoh's mummy inside the innermost of his three coffins. Made of gold inlaid with lapis lazuli, quartz, obsidian and glass, it shows the young king as a god, ready for the afterlife. <button class="more" type="button" data-read="look">Read the full story &rsaquo;</button></p></div></div>
   </section>
 
   <section class="panel" id="inter">
-    <h2><svg viewBox="0 0 32 32"><path d="M13 17V6a2 2 0 0 1 4 0v8m0-1a2 2 0 0 1 4 0v2m0-1a2 2 0 0 1 4 0v6c0 5-3 8-8 8s-7-2-9-6l-3-5a2 2 0 0 1 3-2l3 3"/></svg>Student Interaction</h2>
+    <h2><svg viewBox="0 0 32 32"><path d="M13 17V6a2 2 0 0 1 4 0v8m0-1a2 2 0 0 1 4 0v2m0-1a2 2 0 0 1 4 0v6c0 5-3 8-8 8s-7-2-9-6l-3-5a2 2 0 0 1 3-2l3 3"/></svg>Student Interaction<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
     <button class="irow" data-do="spin"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="M15 15l6 6"/></svg><span><b>Rotate &amp; Explore:</b> Spin the mask to examine it from all angles.</span></button>
     <button class="irow" data-do="zoom"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/></svg><span><b>Zoom In:</b> Look closely at the gold, stones and details.</span></button>
     <button class="irow" data-do="compare"><svg viewBox="0 0 24 24"><path d="M4 20 20 4M7 17l2 2M10 14l2 2M13 11l2 2M16 8l2 2"/></svg><span><b>Compare:</b> How does it differ from a Roman soldier's helmet?</span></button>
@@ -143,7 +167,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
   </section>
 
   <section class="panel" id="think">
-    <h2><svg viewBox="0 0 32 32"><path d="M6 8h20a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H14l-6 5v-5H6a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z"/></svg>Think Like a Historian</h2>
+    <h2><svg viewBox="0 0 32 32"><path d="M6 8h20a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H14l-6 5v-5H6a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z"/></svg>Think Like a Historian<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
     <ul id="qs">
       <li>Why make the king's face out of gold instead of a lifelike portrait?</li>
       <li>The blue lapis lazuli came from Afghanistan. What does that tell us about Egypt's trade and wealth?</li>
@@ -152,7 +176,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
     </ul>
   </section>
 
-  <section class="panel" id="detail" aria-live="polite"><h2><span id="dt"></span><button class="x" id="dclose" aria-label="Close">×</button></h2><div id="db"></div></section>
+  <section class="panel" id="detail" aria-live="polite"><h2><span id="dt"></span><button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button><button class="x" id="dclose" aria-label="Close">×</button></h2><div id="db"></div></section>
   <section class="panel" id="help"><h2>How to use the Archive Lab<button class="x" id="hclose" aria-label="Close">×</button></h2>
     <ul><li><b>Drag</b> the mask to turn it. <b>Scroll</b> or pinch to zoom.</li><li><b>Click a label</b>, or click the mask itself, to learn about that part.</li>
     <li>Desk buttons: <b>spin</b>, <b>zoom</b>, <b>labels on/off</b>, <b>real size</b>, and this help.</li><li>The back of this 3D model is the AI's best guess: it was made from one photograph.</li></ul>
@@ -161,6 +185,39 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
 </div>
 </div>
 
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="rt"><div class="rcard"><div class="rhead"><h2 id="rt"></h2><button class="x" id="rclose" type="button" aria-label="Close">&times;</button></div><div class="rbody" id="rb"></div></div></div>
+<template id="deep-look">
+  <img class="rimg" src="thumb.jpg" alt="The gold mask of Tutankhamun, front view">
+  <div class="facts">
+    <div><b>Made</b>about 1323 BCE<br>18th Dynasty, New Kingdom</div>
+    <div><b>Found</b>28 October 1925<br>Tomb KV62, Valley of the Kings</div>
+    <div><b>Size</b>54 cm tall (21 in)<br>about 10.2 kg of gold (22.5 lb)</div>
+    <div><b>Today</b>Grand Egyptian Museum, Giza<br>(Egyptian Museum, Cairo, 1925&ndash;2025)</div>
+  </div>
+  <h3>Who was Tutankhamun?</h3>
+  <p>Tutankhamun became pharaoh as a boy of about nine and died young, after about ten years on the throne. He ruled just after Akhenaten, the pharaoh who had pushed Egypt to worship one sun god, the Aten. Under Tutankhamun, Egypt went back to its old gods, especially Amun, and Thebes became the religious centre again.</p>
+  <p>He was not one of Egypt's most powerful kings. He is famous today because his tomb was found almost untouched, packed with more than 5,000 objects.</p>
+  <h3>How it was found</h3>
+  <p>Howard Carter's team found the tomb in November 1922, but it took them three more years to reach the king himself. On 28 October 1925 they opened the innermost coffin, made of solid gold, and saw the mask resting on the mummy's head and shoulders. It had not been seen for about 3,250 years.</p>
+  <h3>What was it for?</h3>
+  <p>Egyptians believed a person's spirit had to recognise their body to live on in the afterlife. The mask protected the king's face and gave him a perfect, everlasting one. It shows him as a god: Egyptians said the gods had skin of gold and hair of lapis lazuli, so the mask's gold face and blue stripes tell us he has become divine, like Osiris, the god of the dead.</p>
+  <h3>How it was made</h3>
+  <p>Craftsmen hammered two layers of high-karat gold, 1.5 to 3 mm thick, into shape. Scientists found two different gold mixes: a paler gold for the face and neck, and a richer gold for the rest. The inlays came from far away:</p>
+  <ul>
+    <li><b>Lapis lazuli</b> (deep blue) around the eyes and in the eyebrows, a stone mined in what is now Afghanistan.</li>
+    <li><b>Quartz</b> for the whites of the eyes and <b>obsidian</b> for the pupils.</li>
+    <li><b>Carnelian, turquoise, amazonite</b> and <b>coloured glass</b> in the collar and headcloth. The blue stripes on the headcloth are glass.</li>
+  </ul>
+  <h3>The spell on the back</h3>
+  <p>A spell from the <i>Book of the Dead</i> (spell 151b) is carved in hieroglyphs across the shoulders and back. It links each part of the king's face to a god (his eyes, his eyebrows and more), so that every part is protected on the dangerous journey through the underworld.</p>
+  <h3>Mysteries and debates</h3>
+  <ul>
+    <li><b>Made for someone else?</b> The king's name on the mask shows signs of being changed. Some Egyptologists, such as Nicholas Reeves, think the mask was first made for an earlier ruler, Neferneferuaten (perhaps Queen Nefertiti), and reused for Tutankhamun. Others disagree. Historians still debate it.</li>
+    <li><b>The broken beard.</b> The 2.5 kg braided beard had come loose by the time it was found. It was fixed back on with a wooden peg in 1944. In 2014 it came off again and was hastily glued with epoxy. Experts repaired it properly in 2015.</li>
+    <li><b>Pierced ears.</b> The ears have holes for earrings, but no earrings were on the mask. Why might that be?</li>
+  </ul>
+  <p class="src">Sources: Wikipedia, "Mask of Tutankhamun"; Smarthistory, "Tutankhamun's tomb (innermost coffin and death mask)"; Egyptian Museum (egypt-museum.com); AP, Grand Egyptian Museum opening, 4 Nov 2025.</p>
+</template>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three';
@@ -327,6 +384,22 @@ fetch('exhibit.json', { cache:'no-store' }).then(r => r.ok ? r.json() : {}).then
 if (location.hash === '#teacher') { $('vset').hidden = false; $('vset').onsubmit = e => { e.preventDefault(); setVideo($('vurl').value); if (VID) playVideo(); else $('vlabel').textContent = 'That is not a YouTube link'; }; }
 $('qs').querySelectorAll('li').forEach(li => li.onclick = () => show('Think Like a Historian', li.textContent + ' Discuss it with a partner, then look at the mask again for evidence.'));
 
+// READER: any card opens big; "What am I looking at?" opens its full story
+const reader = $('reader'); let lastFocus = null;
+function openReader(title, nodes) { lastFocus = document.activeElement; $('rt').textContent = title; const rb = $('rb'); rb.innerHTML = ''; rb.append(...nodes); rb.scrollTop = 0; reader.hidden = false; $('rclose').focus(); }
+function closeReader() { reader.hidden = true; if (lastFocus) try { lastFocus.focus(); } catch (_) {} }
+function grow(panel) {
+  if (panel.id === 'look') return openReader('The Gold Mask of Tutankhamun', [$('deep-look').content.cloneNode(true)]);
+  const title = panel.id === 'detail' ? $('dt').textContent : panel.querySelector('h2').textContent.trim();
+  const body = panel.id === 'detail' ? $('db') : panel.querySelector('h2').parentElement;
+  const nodes = [...body.children].filter(n => n.tagName !== 'H2').map(n => n.cloneNode(true));
+  openReader(title, nodes); }
+document.addEventListener('click', e => { const g = e.target.closest('.grow'); if (g) { e.stopPropagation(); grow(g.closest('.panel')); return; }
+  const m = e.target.closest('[data-read]'); if (m) { e.stopPropagation(); grow($(m.dataset.read)); } }, true);
+document.querySelectorAll('#look,#inter,#think,#detail').forEach(p => p.addEventListener('dblclick', e => { if (!e.target.closest('button,a,input')) grow(p); }));
+$('rclose').onclick = closeReader;
+reader.addEventListener('click', e => { if (e.target === reader) return closeReader(); const b = e.target.closest('[data-do]'); if (b) { closeReader(); act(b.dataset.do, b); } });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !reader.hidden) closeReader(); });
 const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2, v3 = new THREE.Vector3(), cp = new THREE.Vector3();
 let last = performance.now();
 function frame(now) {
