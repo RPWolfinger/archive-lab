@@ -230,7 +230,7 @@ const HOME = new THREE.Vector3(0, .74, 5.3);
 // the hologram beam the mask stands in
 const beamMat = new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.DoubleSide, uniforms:{ uT:{ value:0 }, uA:{ value:.6 } },
   vertexShader:'varying vec2 vU;void main(){vU=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-  fragmentShader:'varying vec2 vU;uniform float uT,uA;void main(){float a=pow(1.-vU.y,1.8)*uA;a*=.7+.3*sin(vU.y*70.-uT*3.);gl_FragColor=vec4(.42,.76,1.,a*.32);}' });
+  fragmentShader:'varying vec2 vU;uniform float uT,uA;void main(){float base=pow(1.-vU.y,2.2);float st=pow(abs(sin(vU.x*3.14159*38.+sin(vU.x*25.)*1.5)),18.)*.9+pow(abs(sin(vU.x*3.14159*11.-uT*.15)),40.)*.8;float a=base*uA*(.35+st*(1.-vU.y*.6));a*=.9+.1*sin(vU.y*60.-uT*2.);gl_FragColor=vec4(.45,.8,1.,a*.5);}' });
 const beam = new THREE.Mesh(new THREE.CylinderGeometry(.5, .78, 1.25, 48, 1, true), beamMat); beam.position.y = .62; scene.add(beam);
 // a glowing disc for phones, where his painted desk is not behind the mask
 function ringTex() { const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d'), m = 256;
@@ -239,6 +239,11 @@ function ringTex() { const c = document.createElement('canvas'); c.width = c.hei
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
 const disc = new THREE.Mesh(new THREE.CircleGeometry(.85, 64), new THREE.MeshBasicMaterial({ map:ringTex(), transparent:true, blending:THREE.AdditiveBlending, depthWrite:false }));
 disc.rotation.x = -Math.PI / 2; disc.position.y = .003; scene.add(disc);
+const rings = [[.34, .018, 1, .9], [.5, .012, 1, .7], [.66, .01, .85, .55], [.8, .007, .6, .4]].map(([r, w, arc, op], i) => {
+  const m = new THREE.Mesh(new THREE.RingGeometry(r, r + w, 128, 1, 0, Math.PI * 2 * arc), new THREE.MeshBasicMaterial({ color:'#8fd4ff', transparent:true, opacity:op, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide }));
+  m.rotation.x = -Math.PI / 2; m.position.y = .004 + i * .002; m.userData.spd = (i % 2 ? -1 : 1) * (.12 + i * .05); scene.add(m); return m; });
+const pool = new THREE.Mesh(new THREE.CircleGeometry(.62, 64), new THREE.MeshBasicMaterial({ map:ringTex(), color:'#bfe6ff', transparent:true, opacity:.9, blending:THREE.AdditiveBlending, depthWrite:false }));
+pool.rotation.x = -Math.PI / 2; pool.position.y = .002; scene.add(pool);
 let mask = null, baseY = 0, rise = 0, spin = false, zoomed = false, ruler = null, anchors = [], cur = -1, fly = null;
 const clip = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 function home() { cam.position.copy(HOME); controls.target.set(0, .5, 0); controls.update(); }
@@ -325,7 +330,7 @@ $('qs').querySelectorAll('li').forEach(li => li.onclick = () => show('Think Like
 const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2, v3 = new THREE.Vector3(), cp = new THREE.Vector3();
 let last = performance.now();
 function frame(now) {
-  const dt = Math.min(.05, (now - last) / 1000); last = now; beamMat.uniforms.uT.value = now / 1000; disc.rotation.z += dt * .15;
+  const dt = Math.min(.05, (now - last) / 1000); last = now; beamMat.uniforms.uT.value = now / 1000; disc.rotation.z += dt * .15; if (!reduce) rings.forEach(r => r.rotation.z += dt * r.userData.spd);
   if (mask) { if (rise < 1) { rise = Math.min(1, rise + dt / 2.6); const e = ease(rise); mask.position.y = baseY - (1 - e);
       mask.traverse(o => { if (o.isMesh) o.material.emissiveIntensity = (1 - e) * .9; }); beamMat.uniforms.uA.value = .6 + (1 - e) * .8; }
     else mask.position.y = baseY; }
