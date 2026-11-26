@@ -83,7 +83,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
   .mtools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 12px 0}
   .mtools button{min-height:44px;padding:8px 14px;border-radius:22px;border:1px solid var(--edge);background:rgba(12,30,52,.9);color:#fff;font:600 14px Spectral,serif}
   .mtools button.on{background:var(--gold);color:#241505}
-  .hero{position:relative;height:66vh;min-height:380px;background:url(room.jpg) 50% 52%/auto 140% no-repeat;overflow:hidden}
+  .hero{position:relative;height:62vh;min-height:360px;max-height:620px;background:#0b0805 url(room.jpg) 50% 52%/auto 140% no-repeat;overflow:hidden}
   .panel{position:relative;left:auto!important;top:auto!important;width:auto!important;height:auto!important;margin:12px}
   .call,svg.lines,.tool,.tip{display:none!important}
   .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 12px 0}
@@ -95,7 +95,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
 }
 @media (min-width:761px) and (min-aspect-ratio:3/4){.hero{position:absolute;inset:0}}
 @media (prefers-reduced-motion:reduce){.tip{transition:none}}
-@media (max-width:760px),(max-aspect-ratio:3/4){a.allx{position:static;display:block;width:max-content;margin:8px 10px 0;font-size:13px;padding:6px 10px}.mhead{padding-top:6px}}
+@media (max-width:760px),(max-aspect-ratio:3/4){a.allx{position:static;display:block;width:max-content;margin:8px 10px 0;font-size:13px;padding:6px 10px}.mhead{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}a.allx{position:absolute;z-index:5;margin:0;left:6px;top:6px;font-size:12px;padding:5px 8px}}
 .allx{position:fixed;left:12px;top:12px;z-index:20;padding:7px 12px;border-radius:8px;background:rgba(12,30,52,.85);border:1px solid var(--edge);color:#eef5ff;text-decoration:none;font:600 14px/1 Spectral,serif}.allx:hover,.allx:focus-visible{background:rgba(40,80,130,.95);outline:none}
 .grow{margin-left:auto;flex:none;background:none;border:0;cursor:pointer;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;padding:0}
 .grow svg{width:18px!important;height:18px!important;stroke:#dbeaff;fill:none;stroke-width:2}
@@ -306,7 +306,11 @@ const clip = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
 function home() { cam.position.copy(HOME); controls.target.set(0, .5, 0); controls.update(); }
 function size() {
   const m = mobile(); disc.visible = m;
-  if (m) { const w = hero.clientWidth, h = hero.clientHeight; renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(w, h, false); cam.aspect = w / h; cam.clearViewOffset(); cam.fov = w / h < .8 ? 40 : 30; }
+  if (m) { // phones: a window onto the same composition as the big screen, zoomed so the mask fills it and stands on the glass
+    const w = hero.clientWidth, h = hero.clientHeight; renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(w, h, false);
+    const mh = Math.min(h * .5, w * .62 / .73), k = mh / 396, bx = w / 2 - 724 * k, by = Math.min(0, h * .8 - 590 * k);
+    hero.style.backgroundSize = `${SW * k}px ${SH * k}px`; hero.style.backgroundPosition = `${bx}px ${by}px`;
+    cam.aspect = SW / SH; cam.fov = 30; cam.setViewOffset(SW * k, SH * k, -bx, 150 * k - by, w, h); }
   else { renderer.setPixelRatio(Math.min(2, devicePixelRatio * scale)); renderer.setSize(SW, SH, false); cam.aspect = SW / SH; cam.fov = 30; cam.setViewOffset(SW, SH, 0, 150, SW, SH); }
   cam.updateProjectionMatrix();
 }
