@@ -1,0 +1,5 @@
+3D model: "The Hammurabi Code at The Louvre, Paris" by Scan The World (MyMiniFactory)
+https://www.myminifactory.com/object/3d-print-10376
+Licence: Creative Commons Attribution-NonCommercial-ShareAlike (CC BY-NC-SA)
+Changes: converted from STL to glTF, turned upright, compressed for the web, and shown in a stone colour.
+This adapted model is shared under the same licence, for non-commercial classroom use.

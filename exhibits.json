@@ -1,3 +1,16 @@
 [
-  {"folder": "tut-mask", "title": "The Gold Mask of Tutankhamun", "era": "Ancient Egypt · New Kingdom, about 1323 BCE", "blurb": "Turn the boy king's funerary mask, read its symbols, and decide what it tells us about Egyptian beliefs about death and kingship.", "thumb": "tut-mask/thumb.jpg"}
+  {
+    "folder": "tut-mask",
+    "title": "The Gold Mask of Tutankhamun",
+    "era": "Ancient Egypt · New Kingdom, about 1323 BCE",
+    "blurb": "Turn the boy king's funerary mask, read its symbols, and decide what it tells us about Egyptian beliefs about death and kingship.",
+    "thumb": "tut-mask/thumb.jpg"
+  },
+  {
+    "folder": "hammurabi",
+    "title": "The Law Stele of Hammurabi",
+    "era": "Babylon · about 1754 BCE",
+    "blurb": "Walk around a real 3D scan of the stone that carries Hammurabi's 282 laws, and decide whether 'an eye for an eye' was justice for everyone.",
+    "thumb": "hammurabi/thumb.jpg"
+  }
 ]
