@@ -45,6 +45,15 @@
   "bce": 1345
  },
  {
+  "folder": "tut-chariot",
+  "title": "Tutankhamun's Chariot",
+  "era": "Egypt \u00b7 about 1330 BCE",
+  "blurb": "Walk around one of the six chariots buried with Tutankhamun, the high-speed war machine of New Kingdom Egypt.",
+  "thumb": "tut-chariot/thumb.jpg",
+  "region": "Egypt",
+  "bce": 1330
+ },
+ {
   "folder": "tut-mask",
   "title": "The Gold Mask of Tutankhamun",
   "era": "Ancient Egypt \u00b7 New Kingdom, about 1323 BCE",
