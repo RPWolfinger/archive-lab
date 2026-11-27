@@ -33,5 +33,26 @@
     "era": "Ptolemaic Egypt · 69–30 BCE",
     "blurb": "Turn a real scan of her portrait, read the clues in her headband and hairstyle, and ask who shaped her story.",
     "thumb": "cleopatra/thumb.jpg"
+  },
+  {
+    "folder": "narmer",
+    "title": "The Narmer Palette",
+    "era": "Egypt · about 3100 BCE",
+    "blurb": "Turn over the carved stone that shows King Narmer in the crowns of Upper and Lower Egypt, and decide whether it records a real war or a message about kingship.",
+    "thumb": "narmer/thumb.jpg"
+  },
+  {
+    "folder": "standard-of-ur",
+    "title": "The Standard of Ur",
+    "era": "Sumer · about 2500 BCE",
+    "blurb": "Compare the War side and the Peace side of a mosaic box from a royal tomb, and find what it reveals about Sumerian kings, armies and trade.",
+    "thumb": "standard-of-ur/thumb.jpg"
+  },
+  {
+    "folder": "ziggurat-ur",
+    "title": "The Great Ziggurat of Ur",
+    "era": "Sumer · about 2100 BCE",
+    "blurb": "Climb the triple stairway of the moon god's temple-mountain, rebuilt as it may have looked when new, and ask why kings built mountains for gods.",
+    "thumb": "ziggurat-ur/thumb.jpg"
   }
 ]
