@@ -15,12 +15,17 @@ header{text-align:center;padding:56px 20px 24px}
 h1{margin:0;font:700 clamp(34px,6vw,58px)/1.05 "Cormorant Garamond",Georgia,serif;color:#fff}
 .tag{margin:10px 0 0;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;font-size:14px}
 .intro{max-width:640px;margin:16px auto 0;color:var(--dim)}
-main{max-width:1100px;margin:0 auto;padding:16px 20px 64px;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+main{max-width:1100px;margin:0 auto;padding:16px 20px 64px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
+h2.sec{margin:34px 0 14px;font:700 32px/1.1 "Cormorant Garamond",serif;color:var(--gold);border-bottom:1px solid rgba(232,182,90,.35);padding-bottom:6px;scroll-margin-top:16px}
+nav.jump{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:18px auto 0}
+nav.jump a{color:#bfe0ff;text-decoration:none;border:1.5px solid var(--edge);border-radius:999px;padding:6px 14px;font-size:14.5px;background:rgba(12,30,52,.6)}
+nav.jump a:hover,nav.jump a:focus-visible{background:rgba(40,90,140,.6);outline:none}
 a.card{display:flex;flex-direction:column;text-decoration:none;color:inherit;background:linear-gradient(180deg,rgba(26,58,92,.7),rgba(12,30,52,.8));border:1.5px solid var(--edge);border-radius:12px;overflow:hidden;box-shadow:0 0 18px rgba(80,160,255,.22);transition:transform .2s,box-shadow .2s}
 a.card:hover,a.card:focus-visible{transform:translateY(-3px);box-shadow:0 0 28px rgba(80,160,255,.45);outline:none}
 a.card img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#120d08}
 .body{padding:14px 16px 18px}
-.body h2{margin:0;font:600 25px/1.1 "Cormorant Garamond",serif;color:#fff}
+.body h3.t{margin:0;font:600 25px/1.1 "Cormorant Garamond",serif;color:#fff}
 .era{margin:4px 0 8px;color:var(--gold);font-size:13.5px}
 .body p{margin:0;color:var(--dim);font-size:14.5px}
 .go{margin-top:12px;font-weight:600;color:#bfe0ff}
@@ -34,6 +39,7 @@ footer{text-align:center;color:#8fa3b8;font-size:13px;padding:0 20px 32px}
   <h1>WolfOS Spatial Archive Lab</h1>
   <p class="tag">Explore · Analyze · Interpret · Connect</p>
   <p class="intro">Pick an artifact. Turn it, zoom in, read what each part means, and think like a historian about what it tells us.</p>
+  <nav class="jump" id="jump" aria-label="Jump to a civilization"></nav>
 </header>
 <main id="grid"><p class="empty">Loading exhibits…</p></main>
 <footer>Mr. Wolfinger's history classes · 3D models are museum scans and reconstructions, credited on each exhibit.</footer>
@@ -42,7 +48,11 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 fetch('exhibits.json', {cache:'no-cache'}).then(r => r.json()).then(list => {
   const g = document.getElementById('grid');
   if (!list.length) { g.innerHTML = '<p class="empty">No exhibits yet.</p>'; return; }
-  g.innerHTML = list.map(x => `<a class="card" href="${esc(x.folder)}/"><img src="${esc(x.thumb)}" alt="" loading="lazy"><div class="body"><h2>${esc(x.title)}</h2><p class="era">${esc(x.era)}</p><p>${esc(x.blurb)}</p><p class="go">Open the exhibit &rarr;</p></div></a>`).join('');
+  const card = x => `<a class="card" href="${esc(x.folder)}/"><img src="${esc(x.thumb)}" alt="" loading="lazy"><div class="body"><h3 class="t">${esc(x.title)}</h3><p class="era">${esc(x.era)}</p><p>${esc(x.blurb)}</p><p class="go">Open the exhibit &rarr;</p></div></a>`;
+  const groups = []; list.forEach(x => { const r = x.region || 'More exhibits'; let G = groups.find(q => q.r === r); if (!G) groups.push(G = { r, items: [] }); G.items.push(x); });
+  const id = r => 'c-' + r.toLowerCase().replace(/[^a-z]+/g, '-');
+  g.innerHTML = groups.map(G => `<h2 class="sec" id="${id(G.r)}">${esc(G.r)}</h2><div class="grid">${G.items.map(card).join('')}</div>`).join('');
+  document.getElementById('jump').innerHTML = groups.map(G => `<a href="#${id(G.r)}">${esc(G.r)} (${G.items.length})</a>`).join('');
 }).catch(() => { document.getElementById('grid').innerHTML = '<p class="empty">The exhibit list didn\'t load. Refresh the page.</p>'; });
 </script>
 </body>
