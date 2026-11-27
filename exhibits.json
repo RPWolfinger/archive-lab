@@ -12,5 +12,26 @@
     "era": "Babylon · about 1754 BCE",
     "blurb": "Walk around a real 3D scan of the stone that carries Hammurabi's 282 laws, and decide whether 'an eye for an eye' was justice for everyone.",
     "thumb": "hammurabi/thumb.jpg"
+  },
+  {
+    "folder": "nefertiti",
+    "title": "The Bust of Nefertiti",
+    "era": "Egypt · Amarna, about 1345 BCE",
+    "blurb": "Explore the Berlin museum's own full-colour scan of the queen's painted bust, and decide who should own it today.",
+    "thumb": "nefertiti/thumb.jpg"
+  },
+  {
+    "folder": "tut-dagger",
+    "title": "Tutankhamun's Iron Dagger",
+    "era": "Egypt · New Kingdom, about 1323 BCE",
+    "blurb": "A blade made from a meteorite, found on the boy king's mummy. Was it a royal gift from another kingdom?",
+    "thumb": "tut-dagger/thumb.jpg"
+  },
+  {
+    "folder": "cleopatra",
+    "title": "Cleopatra VII",
+    "era": "Ptolemaic Egypt · 69–30 BCE",
+    "blurb": "Turn a real scan of her portrait, see it painted as it may once have looked, and ask who shaped her story.",
+    "thumb": "cleopatra/thumb.jpg"
   }
 ]

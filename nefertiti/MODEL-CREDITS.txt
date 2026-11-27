@@ -1,0 +1,3 @@
+3D model: Bust of Queen Nefertiti, 3D scan by Trigon Art, Berlin 2008, for the Egyptian Museum and Papyrus Collection, Staatliche Museen zu Berlin.
+Released to Cosmo Wenman (FOIA) and published at https://www.thingiverse.com/thing:3974391
+Licence: CC BY-NC-SA. Changes: simplified from 6.4 million to 400,000 triangles, stood upright, compressed for the web. Shared under the same licence for non-commercial classroom use.

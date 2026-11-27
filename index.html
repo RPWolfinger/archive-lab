@@ -36,7 +36,7 @@ footer{text-align:center;color:#8fa3b8;font-size:13px;padding:0 20px 32px}
   <p class="intro">Pick an artifact. Turn it, zoom in, read what each part means, and think like a historian about what it tells us.</p>
 </header>
 <main id="grid"><p class="empty">Loading exhibits…</p></main>
-<footer>Mr. Wolfinger's history classes · 3D models are reconstructions made for teaching.</footer>
+<footer>Mr. Wolfinger's history classes · 3D models are museum scans and reconstructions, credited on each exhibit.</footer>
 <script>
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 fetch('exhibits.json', {cache:'no-cache'}).then(r => r.json()).then(list => {
