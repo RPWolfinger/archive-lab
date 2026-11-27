@@ -129,8 +129,6 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
   .panel{margin:10px 10px 10px 12px}
   .reader .rcard{max-height:96vh}
 }
-.ptag{position:absolute;left:50%;transform:translateX(-50%);top:96px;z-index:4;font:600 12px/1 Spectral,serif;color:#ffe2a0;background:rgba(10,24,40,.8);border:1px solid rgba(255,214,140,.55);border-radius:12px;padding:5px 10px;pointer-events:none}
-@media (max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape){.ptag{top:auto;bottom:10px}}
 </style>
 </head>
 <body>
@@ -140,7 +138,6 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
   <div class="mhead">WolfOS Spatial Archive Lab<small>Explore · Analyze · Interpret · Connect</small></div>
   <div class="mtools"><button type="button" data-do="spin">Spin</button><button type="button" data-do="zoom">Zoom</button><button type="button" data-do="size">Real size</button><button type="button" data-do="help">Help</button></div>
   <div class="hero" id="hero">
-    <div class="ptag" id="ptag">Painted colours: a reconstruction</div>
     <canvas id="c" aria-label="3D scan of a marble portrait of Cleopatra VII, rising from the archive desk. Drag to turn it."></canvas>
     <svg class="lines" id="lines" viewBox="0 0 1448 1086" preserveAspectRatio="none"></svg>
     <div class="loading" id="loading">Bringing Cleopatra up from the archive…</div>
@@ -151,7 +148,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
     <h2><svg viewBox="0 0 32 32"><path d="M4 12h24M6 12v13M11 12v13M16 12v13M21 12v13M26 12v13M3 27h26M5 12l11-7 11 7"/></svg>What am I looking at?<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
     <div class="row"><img src="thumb.jpg" alt="Portrait head of Cleopatra VII, front view">
       <div><h3>Cleopatra VII (69–30 BCE)</h3>
-      <p>The last ruler of Ptolemaic Egypt, wearing the royal diadem of Greek kings. A 3D scan of a museum cast of an ancient marble portrait, shown with its likely original paint. <button class="more" type="button" id="paintBtn">Show bare marble</button> &middot; <button class="more" type="button" data-read="look">Read the full story &rsaquo;</button></p></div></div>
+      <p>The last ruler of Ptolemaic Egypt, wearing the royal diadem of Greek kings. A 3D scan of a museum cast of an ancient marble portrait made in her lifetime. <button class="more" type="button" data-read="look">Read the full story &rsaquo;</button></p></div></div>
   </section>
 
   <section class="panel" id="inter">
@@ -190,7 +187,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
   <section class="panel" id="detail" aria-live="polite"><h2><span id="dt"></span><button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button><button class="x" id="dclose" aria-label="Close">×</button></h2><div id="db"></div></section>
   <section class="panel" id="help"><h2>How to use the Archive Lab<button class="x" id="hclose" aria-label="Close">×</button></h2>
     <ul><li><b>Drag</b> the portrait to turn it. <b>Scroll</b> or pinch to zoom.</li><li><b>Click a label</b>, or click the portrait itself, to learn about that part.</li>
-    <li>Desk buttons: <b>spin</b>, <b>zoom</b>, <b>labels on/off</b>, <b>real size</b>, and this help.</li><li>This is a 3D scan of a plaster cast, so it carries shape only. The <b>painted colours are a reconstruction</b>: ancient marble portraits were painted, and the Berlin portrait of Cleopatra still has faint red paint in its hair. The skin and diadem colours are educated guesses. Use "Show bare marble" to see the stone. The stand is modern.</li></ul>
+    <li>Desk buttons: <b>spin</b>, <b>zoom</b>, <b>labels on/off</b>, <b>real size</b>, and this help.</li><li>This is a 3D scan of a plaster cast made for a museum of casts, so it shows the shape of the ancient marble, not its colour. The stone stand is modern.</li></ul>
     <p style="font-size:13px;color:var(--dim);margin:6px 0 0">3D scan: "Cleopatra VII" by Scan The World (MyMiniFactory), cast in the Museum für Abgüsse Klassischer Bildwerke, Munich, CC BY-NC-SA. Sources: Staatliche Museen zu Berlin; Encyclopaedia Britannica; Plutarch, Life of Antony.</p></section>
   <div class="chips" id="chips"></div>
 </div>
@@ -320,7 +317,7 @@ async function load() {
   const buf = await fetch('model.glb').then(r => { if (!r.ok) throw new Error('model ' + r.status); return r.arrayBuffer(); });
   const cib = self.createImageBitmap;   // read the model's paint as <img>; a sealed page may refuse fetch() of its blobs
   const gltf = await new Promise((res, rej) => { try { self.createImageBitmap = undefined; } catch (_) {} try { new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parse(buf, '', res, rej); } finally { try { self.createImageBitmap = cib; } catch (_) {} } });
-  mask = gltf.scene; mask.updateMatrixWorld(true); paintCleo(mask); const box = new THREE.Box3().setFromObject(mask), sz = box.getSize(new THREE.Vector3()), s = OH / sz.y;
+  mask = gltf.scene; mask.traverse(o => { if (o.isMesh) o.material = new THREE.MeshStandardMaterial({ color:'#b3aa9b', roughness:.8, metalness:0 }); }); const box = new THREE.Box3().setFromObject(mask), sz = box.getSize(new THREE.Vector3()), s = OH / sz.y;
   mask.scale.setScalar(s); baseY = -box.min.y * s + .01; mask.position.set(-(box.min.x + sz.x / 2) * s, baseY, -(box.min.z + sz.z / 2) * s);
   mask.traverse(o => { if (o.isMesh) { o.material.clippingPlanes = [clip]; o.material.emissive = new THREE.Color('#5ab8ff'); o.material.emissiveIntensity = 0; } });
   scene.add(mask); mask.updateMatrixWorld(true); findAnchors(); $('loading').remove(); rise = reduce ? 1 : .0001;
@@ -404,27 +401,6 @@ document.querySelectorAll('#look,#inter,#think,#detail').forEach(p => p.addEvent
 $('rclose').onclick = closeReader;
 reader.addEventListener('click', e => { if (e.target === reader) return closeReader(); const b = e.target.closest('[data-do]'); if (b) { closeReader(); act(b.dataset.do, b); } });
 addEventListener('keydown', e => { if (e.key === 'Escape' && !reader.hidden) closeReader(); });
-
-// PAINTED VIEW: ancient marble was painted. Colour the real scan by region (a reconstruction); the button switches to bare marble.
-const PAINT = { skin:new THREE.Color('#b0805f'), hair:new THREE.Color('#5e2e1c'), band:new THREE.Color('#d6ccb2'), stand:new THREE.Color('#6f6a64') };
-const marbleMat = new THREE.MeshStandardMaterial({ color:'#b3aa9b', roughness:.8, metalness:0 }), paintMat = new THREE.MeshStandardMaterial({ vertexColors:true, roughness:.72, metalness:0 });
-let painted = true;
-function paintCleo(root) {   // model units: height 130, face toward +z, y up from the stand's base
-  const v = new THREE.Vector3(), nm = new THREE.Vector3();
-  root.traverse(o => { if (!o.isMesh) return; const g = o.geometry, p = g.attributes.position, n = g.attributes.normal, N = p.count, col = new Float32Array(N * 3), m3 = new THREE.Matrix3().getNormalMatrix(o.matrixWorld);
-    for (let i = 0; i < N; i++) { v.fromBufferAttribute(p, i).applyMatrix4(o.matrixWorld); if (n) nm.fromBufferAttribute(n, i).applyMatrix3(m3).normalize(); else nm.set(0, 1, 0);
-      const x = v.x, y = v.y, z = v.z; let c;
-      if (y < BAND.standY && (Math.abs(nm.x) > .96 || Math.abs(nm.y) > .96 || Math.abs(nm.z) > .96 || y < BAND.rodY)) c = PAINT.stand;
-      else if (y > BAND.minY && Math.abs(BAND.nz * (z - BAND.z0) + BAND.ny * (y - BAND.y0)) < BAND.w) c = PAINT.band;
-      else { const hl = z >= HAIR.zf ? HAIR.yf : z <= HAIR.zb ? HAIR.yb : HAIR.yb + (z - HAIR.zb) / (HAIR.zf - HAIR.zb) * (HAIR.yf - HAIR.yb); c = y > hl ? PAINT.hair : PAINT.skin; }
-      col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b; }
-    g.setAttribute('color', new THREE.BufferAttribute(col, 3)); o.material = paintMat; });
-}
-const BAND = { z0:9.5, y0:129, nz:.904, ny:-.428, w:4.2, minY:55, standY:27.5, rodY:21 }, HAIR = { zf:30, yf:94, zb:-20, yb:55 };
-function setPaint(on) { painted = on; if (!mask) return; mask.traverse(o => { if (!o.isMesh) return; const old = o.material, m = on ? paintMat : marbleMat;
-    m.clippingPlanes = old.clippingPlanes; m.emissive = old.emissive || new THREE.Color('#5ab8ff'); m.emissiveIntensity = old.emissiveIntensity || 0; o.material = m; });
-  $('paintBtn').textContent = on ? 'Show bare marble' : 'Show painted colours'; $('ptag').hidden = !on; }
-document.addEventListener('click', e => { if (e.target.closest('#paintBtn')) { e.stopPropagation(); setPaint(!painted); } }, true);
 const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2, v3 = new THREE.Vector3(), cp = new THREE.Vector3();
 let last = performance.now();
 function frame(now) {
