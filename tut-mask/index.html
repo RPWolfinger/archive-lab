@@ -74,7 +74,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
 #size{position:absolute;pointer-events:none;color:#ffd98a;font:600 18px/1 Spectral,serif;text-shadow:0 0 8px #000;display:none}
 .loading{position:absolute;left:574px;top:330px;width:300px;text-align:center;color:#bfe3ff;font-size:16px;text-shadow:0 0 10px #000}
 .chips,.mhead,.mtools{display:none}
-@media (max-width:760px),(max-aspect-ratio:3/4){
+@media (max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape){
   .view{height:auto;overflow:visible}.view::before{display:none}
   .stage{position:relative;left:0;top:0;width:100%;height:auto;transform:none!important;background:none;display:flex;flex-direction:column}
   .mhead{display:block;order:-1;text-align:center;padding:14px 10px 6px;font:700 30px/1.05 "Cormorant Garamond",serif;color:#f0c46c;background:#0b0805}
@@ -95,7 +95,7 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
 }
 @media (min-width:761px) and (min-aspect-ratio:3/4){.hero{position:absolute;inset:0}}
 @media (prefers-reduced-motion:reduce){.tip{transition:none}}
-@media (max-width:760px),(max-aspect-ratio:3/4){a.allx{position:static;display:block;width:max-content;margin:8px 10px 0;font-size:13px;padding:6px 10px}.mhead{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}a.allx{position:absolute;z-index:5;margin:0;left:6px;top:6px;font-size:12px;padding:5px 8px}}
+@media (max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape){a.allx{position:static;display:block;width:max-content;margin:8px 10px 0;font-size:13px;padding:6px 10px}.mhead{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}a.allx{position:absolute;z-index:5;margin:0;left:6px;top:6px;font-size:12px;padding:5px 8px}}
 .allx{position:fixed;left:12px;top:12px;z-index:20;padding:7px 12px;border-radius:8px;background:rgba(12,30,52,.85);border:1px solid var(--edge);color:#eef5ff;text-decoration:none;font:600 14px/1 Spectral,serif}.allx:hover,.allx:focus-visible{background:rgba(40,80,130,.95);outline:none}
 .grow{margin-left:auto;flex:none;background:none;border:0;cursor:pointer;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;padding:0}
 .grow svg{width:18px!important;height:18px!important;stroke:#dbeaff;fill:none;stroke-width:2}
@@ -121,6 +121,14 @@ svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;o
 .rbody .irow{font-size:1em;padding:8px}.rbody .irow svg{width:30px;height:30px}
 .rbody #qs,.rbody ul.qs{padding-left:1.2em}
 @media (max-width:620px){.rimg{float:none;display:block;width:60%;margin:0 auto 12px}.facts{grid-template-columns:1fr}}
+@media (max-height:500px) and (orientation:landscape){
+  .stage{padding:6px 0 16px 56vw}
+  .hero{position:fixed!important;left:0;top:0;width:56vw;height:100vh!important;min-height:0!important;max-height:none!important;z-index:1}
+  a.allx{position:fixed!important;z-index:6}
+  .mtools{margin-top:4px}
+  .panel{margin:10px 10px 10px 12px}
+  .reader .rcard{max-height:96vh}
+}
 </style>
 </head>
 <body>
@@ -251,7 +259,7 @@ const EXTRA = {
 const $ = id => document.getElementById(id);
 const stage = $('stage'), hero = $('hero'), canvas = $('c'), lines = $('lines');
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mobile = () => matchMedia('(max-width:760px),(max-aspect-ratio:3/4)').matches;
+const mobile = () => matchMedia('(max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape)').matches;
 let scale = 1;
 function fit() {
   if (mobile()) { stage.style.transform = ''; scale = 1; }
