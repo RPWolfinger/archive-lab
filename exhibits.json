@@ -1,128 +1,146 @@
 [
-  {
-    "folder": "standard-of-ur",
-    "title": "The Standard of Ur",
-    "era": "Sumer · about 2500 BCE",
-    "blurb": "Compare the War side and the Peace side of a mosaic box from a royal tomb, and find what it reveals about Sumerian kings, armies and trade.",
-    "thumb": "standard-of-ur/thumb.jpg",
-    "region": "Mesopotamia",
-    "bce": 2500
-  },
-  {
-    "folder": "ziggurat-ur",
-    "title": "The Great Ziggurat of Ur",
-    "era": "Sumer · about 2100 BCE",
-    "blurb": "Climb the triple stairway of the moon god's temple-mountain, rebuilt as it may have looked when new, and ask why kings built mountains for gods.",
-    "thumb": "ziggurat-ur/thumb.jpg",
-    "region": "Mesopotamia",
-    "bce": 2100
-  },
-  {
-    "folder": "hammurabi",
-    "title": "The Law Stele of Hammurabi",
-    "era": "Babylon · about 1755–1750 BCE",
-    "blurb": "Walk around a real 3D scan of the stone that carries Hammurabi's 282 laws, and decide whether 'an eye for an eye' was justice for everyone.",
-    "thumb": "hammurabi/thumb.jpg",
-    "region": "Mesopotamia",
-    "bce": 1754
-  },
-  {
-    "folder": "narmer",
-    "title": "The Narmer Palette",
-    "era": "Egypt · about 3100 BCE",
-    "blurb": "Turn over the carved stone that shows King Narmer in the crowns of Upper and Lower Egypt, and decide whether it records a real war or a message about kingship.",
-    "thumb": "narmer/thumb.jpg",
-    "region": "Egypt",
-    "bce": 3100
-  },
-  {
-    "folder": "nefertiti",
-    "title": "The Bust of Nefertiti",
-    "era": "Egypt · Amarna, about 1345 BCE",
-    "blurb": "Explore the Berlin museum's own full-colour scan of the queen's painted bust, and decide who should own it today.",
-    "thumb": "nefertiti/thumb.jpg",
-    "region": "Egypt",
-    "bce": 1345
-  },
-  {
-    "folder": "tut-mask",
-    "title": "The Gold Mask of Tutankhamun",
-    "era": "Ancient Egypt · New Kingdom, about 1323 BCE",
-    "blurb": "Turn the boy king's funerary mask, read its symbols, and decide what it tells us about Egyptian beliefs about death and kingship.",
-    "thumb": "tut-mask/thumb.jpg",
-    "region": "Egypt",
-    "bce": 1323.6
-  },
-  {
-    "folder": "tut-dagger",
-    "title": "Tutankhamun's Iron Dagger",
-    "era": "Egypt · New Kingdom, about 1323 BCE",
-    "blurb": "A blade made from a meteorite, found on the boy king's mummy. Was it a royal gift from another kingdom?",
-    "thumb": "tut-dagger/thumb.jpg",
-    "region": "Egypt",
-    "bce": 1323.5
-  },
-  {
-    "folder": "ramesses-ii",
-    "title": "Ramesses II, the \"Younger Memnon\"",
-    "era": "Egypt · about 1250 BCE",
-    "blurb": "Walk around a colossal granite statue of Egypt's most famous pharaoh and ask how rulers used monuments as propaganda.",
-    "thumb": "ramesses-ii/thumb.jpg",
-    "region": "Egypt",
-    "bce": 1250
-  },
-  {
-    "folder": "rosetta",
-    "title": "The Rosetta Stone",
-    "era": "Egypt · 196 BCE",
-    "blurb": "Find the three scripts on the stone that unlocked Egyptian hieroglyphs, and debate where it belongs today.",
-    "thumb": "rosetta/thumb.jpg",
-    "region": "Egypt",
-    "bce": 196
-  },
-  {
-    "folder": "cleopatra",
-    "title": "Cleopatra VII",
-    "era": "Ptolemaic Egypt · 69–30 BCE",
-    "blurb": "Turn a real scan of her portrait, read the clues in her headband and hairstyle, and ask who shaped her story.",
-    "thumb": "cleopatra/thumb.jpg",
-    "region": "Egypt",
-    "bce": 50
-  },
-  {
-    "folder": "unicorn-seal",
-    "title": "An Indus Unicorn Seal",
-    "era": "Indus Valley · about 2600–1900 BCE",
-    "blurb": "Examine a tiny stone seal carved with a one-horned animal and a script that no one can read yet.",
-    "thumb": "unicorn-seal/thumb.jpg",
-    "region": "Indus Valley",
-    "bce": 2250
-  },
-  {
-    "folder": "priest-king",
-    "title": "The \"Priest-King\" of Mohenjo-daro",
-    "era": "Indus Valley · about 2000 BCE",
-    "blurb": "Study the most famous statue of the Indus cities, a civilization with no known palaces or royal tombs, and decide whether he was really a king.",
-    "thumb": "priest-king/thumb.jpg",
-    "region": "Indus Valley",
-    "bce": 2000
-  },
-  {
-    "folder": "oracle-bone",
-    "title": "A Shang Oracle Bone",
-    "era": "China · about 1300–1050 BCE",
-    "blurb": "Turn over a bone the Shang kings cracked with fire to question their ancestors, carved with the earliest Chinese writing.",
-    "thumb": "oracle-bone/thumb.jpg",
-    "region": "China",
-    "bce": 1200
-  },
-  {
-    "folder": "shang-ding",
-    "title": "A Shang Ritual Cauldron (Ding)",
-    "era": "China · 1200–1100 BCE",
-    "blurb": "Look for hidden faces on a bronze vessel used to feed the ancestors, and discover what bronze meant for Shang power.",
-    "thumb": "shang-ding/thumb.jpg",
-    "region": "China",
-    "bce": 1150
-  }
+ {
+  "folder": "standard-of-ur",
+  "title": "The Standard of Ur",
+  "era": "Sumer \u00b7 about 2500 BCE",
+  "blurb": "Compare the War side and the Peace side of a mosaic box from a royal tomb, and find what it reveals about Sumerian kings, armies and trade.",
+  "thumb": "standard-of-ur/thumb.jpg",
+  "region": "Mesopotamia",
+  "bce": 2500
+ },
+ {
+  "folder": "ziggurat-ur",
+  "title": "The Great Ziggurat of Ur",
+  "era": "Sumer \u00b7 about 2100 BCE",
+  "blurb": "Climb the triple stairway of the moon god's temple-mountain, rebuilt as it may have looked when new, and ask why kings built mountains for gods.",
+  "thumb": "ziggurat-ur/thumb.jpg",
+  "region": "Mesopotamia",
+  "bce": 2100
+ },
+ {
+  "folder": "hammurabi",
+  "title": "The Law Stele of Hammurabi",
+  "era": "Babylon \u00b7 about 1755\u20131750 BCE",
+  "blurb": "Walk around a real 3D scan of the stone that carries Hammurabi's 282 laws, and decide whether 'an eye for an eye' was justice for everyone.",
+  "thumb": "hammurabi/thumb.jpg",
+  "region": "Mesopotamia",
+  "bce": 1754
+ },
+ {
+  "folder": "narmer",
+  "title": "The Narmer Palette",
+  "era": "Egypt \u00b7 about 3100 BCE",
+  "blurb": "Turn over the carved stone that shows King Narmer in the crowns of Upper and Lower Egypt, and decide whether it records a real war or a message about kingship.",
+  "thumb": "narmer/thumb.jpg",
+  "region": "Egypt",
+  "bce": 3100
+ },
+ {
+  "folder": "nefertiti",
+  "title": "The Bust of Nefertiti",
+  "era": "Egypt \u00b7 Amarna, about 1345 BCE",
+  "blurb": "Explore the Berlin museum's own full-colour scan of the queen's painted bust, and decide who should own it today.",
+  "thumb": "nefertiti/thumb.jpg",
+  "region": "Egypt",
+  "bce": 1345
+ },
+ {
+  "folder": "tut-mask",
+  "title": "The Gold Mask of Tutankhamun",
+  "era": "Ancient Egypt \u00b7 New Kingdom, about 1323 BCE",
+  "blurb": "Turn the boy king's funerary mask, read its symbols, and decide what it tells us about Egyptian beliefs about death and kingship.",
+  "thumb": "tut-mask/thumb.jpg",
+  "region": "Egypt",
+  "bce": 1323.6
+ },
+ {
+  "folder": "tut-dagger",
+  "title": "Tutankhamun's Iron Dagger",
+  "era": "Egypt \u00b7 New Kingdom, about 1323 BCE",
+  "blurb": "A blade made from a meteorite, found on the boy king's mummy. Was it a royal gift from another kingdom?",
+  "thumb": "tut-dagger/thumb.jpg",
+  "region": "Egypt",
+  "bce": 1323.5
+ },
+ {
+  "folder": "ramesses-ii",
+  "title": "Ramesses II, the \"Younger Memnon\"",
+  "era": "Egypt \u00b7 about 1250 BCE",
+  "blurb": "Walk around a colossal granite statue of Egypt's most famous pharaoh and ask how rulers used monuments as propaganda.",
+  "thumb": "ramesses-ii/thumb.jpg",
+  "region": "Egypt",
+  "bce": 1250
+ },
+ {
+  "folder": "rosetta",
+  "title": "The Rosetta Stone",
+  "era": "Egypt \u00b7 196 BCE",
+  "blurb": "Find the three scripts on the stone that unlocked Egyptian hieroglyphs, and debate where it belongs today.",
+  "thumb": "rosetta/thumb.jpg",
+  "region": "Egypt",
+  "bce": 196
+ },
+ {
+  "folder": "cleopatra",
+  "title": "Cleopatra VII",
+  "era": "Ptolemaic Egypt \u00b7 69\u201330 BCE",
+  "blurb": "Turn a real scan of her portrait, read the clues in her headband and hairstyle, and ask who shaped her story.",
+  "thumb": "cleopatra/thumb.jpg",
+  "region": "Egypt",
+  "bce": 50
+ },
+ {
+  "folder": "unicorn-seal",
+  "title": "An Indus Unicorn Seal",
+  "era": "Indus Valley \u00b7 about 2600\u20131900 BCE",
+  "blurb": "Examine a tiny stone seal carved with a one-horned animal and a script that no one can read yet.",
+  "thumb": "unicorn-seal/thumb.jpg",
+  "region": "Indus Valley",
+  "bce": 2250
+ },
+ {
+  "folder": "priest-king",
+  "title": "The \"Priest-King\" of Mohenjo-daro",
+  "era": "Indus Valley \u00b7 about 2000 BCE",
+  "blurb": "Study the most famous statue of the Indus cities, a civilization with no known palaces or royal tombs, and decide whether he was really a king.",
+  "thumb": "priest-king/thumb.jpg",
+  "region": "Indus Valley",
+  "bce": 2000
+ },
+ {
+  "folder": "oracle-bone",
+  "title": "A Shang Oracle Bone",
+  "era": "China \u00b7 about 1300\u20131050 BCE",
+  "blurb": "Turn over a bone the Shang kings cracked with fire to question their ancestors, carved with the earliest Chinese writing.",
+  "thumb": "oracle-bone/thumb.jpg",
+  "region": "China",
+  "bce": 1200
+ },
+ {
+  "folder": "shang-helmet",
+  "title": "A Shang Bronze Helmet",
+  "era": "China \u00b7 about 1300\u20131100 BCE",
+  "blurb": "Turn a bronze war helmet with a monster face on its brow, and ask who in a Shang army could afford one.",
+  "thumb": "shang-helmet/thumb.jpg",
+  "region": "China",
+  "bce": 1200
+ },
+ {
+  "folder": "shang-ding",
+  "title": "A Shang Ritual Cauldron (Ding)",
+  "era": "China \u00b7 1200\u20131100 BCE",
+  "blurb": "Look for hidden faces on a bronze vessel used to feed the ancestors, and discover what bronze meant for Shang power.",
+  "thumb": "shang-ding/thumb.jpg",
+  "region": "China",
+  "bce": 1150
+ },
+ {
+  "folder": "shang-yue",
+  "title": "A Shang Ceremonial Axe (Yue)",
+  "era": "China \u00b7 about 1200\u20131050 BCE",
+  "blurb": "Face a grinning bronze axe from a great Shang tomb, a weapon that stood for the power to command and punish.",
+  "thumb": "shang-yue/thumb.jpg",
+  "region": "China",
+  "bce": 1125
+ }
 ]
