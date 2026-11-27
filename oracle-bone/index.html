@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WolfOS Archive Lab: A Shang Oracle Bone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Spectral:wght@400;600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: Mr. Wolfinger's own mockup, made real: a night reading room where the archive table projects the artifact.
+   IDEA: the WolfOS Spatial Archive Lab (his graphic is the blueprint; its room, desk and title are the backdrop).
+   PICTURE: the live 3D artifact rising from the desk's glass, labelled with lines like a museum hologram.
+   COLOUR and TYPE: walnut and lamplight, holo-blue glass panels; Cormorant Garamond titles, Spectral text.
+   LAYOUT: his 1448 x 1086 composition, scaled to the screen; on phones the room becomes a hero and the panels stack. */
+:root{color-scheme:dark;--glass:linear-gradient(180deg,rgba(26,58,92,.78),rgba(12,30,52,.82));--edge:rgba(120,186,255,.6);--ink:#eef5ff;--dim:#c3d6ea;--gold:#e8b65a}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0;height:100%;background:#0b0805;color:var(--ink);font:15px/1.45 Spectral,Georgia,serif;overflow-x:clip}
+.view{position:relative;width:100vw;height:100vh;overflow:hidden;background:#0b0805}
+.view::before{content:none}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0b0805,rgba(11,8,5,0) 5%,rgba(11,8,5,0) 95%,#0b0805)}
+.stage{position:absolute;left:50%;top:50%;width:1448px;height:1086px;transform-origin:0 0;background:url(room.jpg) center/100% 100% no-repeat}
+#c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
+svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.panel{position:absolute;background:var(--glass);border:1.5px solid var(--edge);border-radius:10px;box-shadow:0 0 18px rgba(80,160,255,.35),inset 0 0 22px rgba(120,186,255,.12);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:14px 18px}
+.panel h2{display:flex;align-items:center;gap:10px;margin:0 0 6px;font:600 24px/1.1 "Cormorant Garamond",Georgia,serif;color:#fff}
+.panel h2 svg{width:30px;height:30px;flex:none;stroke:#dbeaff;fill:none;stroke-width:1.6}
+#look{left:113px;top:128px;width:388px;height:222px;padding:12px 16px}
+#look .row{display:flex;gap:12px}
+#look img{width:112px;height:148px;object-fit:cover;border-radius:4px;border:1px solid rgba(255,255,255,.25);flex:none}
+#look h3{margin:0 0 4px;font:600 17px/1.15 "Cormorant Garamond",serif;color:#fff}
+#look p{margin:0;font-size:13px;line-height:1.34;color:var(--dim)}
+#inter{left:112px;top:364px;width:318px;height:214px;padding:10px 14px}
+.irow{display:flex;align-items:flex-start;gap:10px;width:100%;background:none;border:0;color:inherit;text-align:left;padding:3px 4px;border-radius:6px;cursor:pointer;font:12.5px/1.28 Spectral,serif}
+.irow:hover,.irow:focus-visible,.irow.on{background:rgba(120,186,255,.16);outline:none}
+.irow svg{width:24px;height:24px;flex:none;stroke:#dbeaff;fill:none;stroke-width:1.6;margin-top:1px}
+.irow b{color:#fff}
+#teach{left:1067px;top:75px;width:332px;height:282px;padding:10px 12px;z-index:3}
+#teach h2{font-size:21px;margin-bottom:6px}#teach h2 svg{width:24px;height:24px}
+.x{margin-left:auto;background:none;border:0;color:#dbeaff;font-size:22px;line-height:1;cursor:pointer;width:32px;height:32px;border-radius:6px}
+.x:hover,.x:focus-visible{background:rgba(255,255,255,.12);outline:none}
+.vid{position:relative;border-radius:6px;overflow:hidden;border:1px solid rgba(255,255,255,.22);height:226px;background:#000}
+.vid img{width:100%;height:100%;object-fit:cover;display:block}
+.vbar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:6px 10px 8px;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);font-size:12px}
+.vbar button{background:none;border:0;color:#fff;cursor:pointer;padding:2px;display:grid;place-items:center}
+.vbar svg{width:17px;height:17px;fill:#fff}
+.vbar .bar{flex:1;height:3px;background:rgba(255,255,255,.3);border-radius:2px;position:relative}
+.vbar .bar i{position:absolute;left:0;top:0;bottom:0;width:4%;background:#fff;border-radius:2px}
+.vmsg{position:absolute;inset:0;display:none;place-items:center;text-align:center;padding:18px;background:rgba(6,16,30,.82);font-size:15px}
+.vmsg.on{display:grid}
+.vid iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vlinks{font-size:12px;margin-top:4px;text-align:right;min-height:16px}.vlinks a{color:#9fd3ff}
+.vset{position:absolute;left:0;right:0;top:100%;margin-top:8px;background:#0c2238;border:1.5px solid var(--edge);border-radius:10px;padding:10px 12px;font-size:13px}
+.vset div{display:flex;gap:6px;margin:6px 0}.vset input{flex:1;min-height:40px;border-radius:6px;border:1px solid var(--edge);background:#08182a;color:#fff;padding:6px 8px;font:15px Spectral,serif}
+.vset button{min-height:40px;border-radius:6px;border:1px solid var(--edge);background:#1d4a78;color:#fff;padding:0 12px;cursor:pointer}.vset p{margin:0;color:var(--dim)}
+#think{left:1078px;top:373px;width:330px;height:226px;padding:10px 14px}
+#think h2{font-size:22px}
+#think ul{margin:2px 0 0;padding-left:18px;font-size:12.5px;line-height:1.3}
+#think li{margin:0 0 5px;cursor:pointer}#think li:hover{color:#fff}
+.call{position:absolute;padding:7px 10px;border-radius:6px;cursor:pointer;text-align:left;color:var(--ink);font:12.5px/1.3 Spectral,serif}
+.call b{display:block;font:700 16px/1.15 "Cormorant Garamond",serif;color:#fff;margin-bottom:3px}
+.call:hover,.call:focus-visible,.call.on{border-color:#ffe2a0;box-shadow:0 0 20px rgba(232,182,90,.55);outline:none}
+.hidecalls .call,.hidecalls svg.lines{display:none}
+#detail{left:112px;top:604px;width:330px;display:none}
+#detail.on{display:block}
+#detail h2{font-size:22px}#detail p{margin:.3em 0;font-size:14px;line-height:1.42;color:var(--dim)}
+.tool{position:absolute;width:50px;height:50px;margin:-25px 0 0 -25px;border-radius:50%;border:0;background:transparent;cursor:pointer}
+.tool:hover,.tool:focus-visible,.tool.on{box-shadow:0 0 0 2px rgba(190,230,255,.9),0 0 22px rgba(120,200,255,.9);outline:none}
+.tip{position:absolute;transform:translate(-50%,-100%);margin-top:-30px;background:rgba(8,20,36,.92);border:1px solid var(--edge);border-radius:6px;padding:4px 9px;font-size:13px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s}
+.tool:hover+.tip,.tool:focus-visible+.tip{opacity:1}
+#help{left:474px;top:160px;width:500px;display:none;z-index:5}
+#help.on{display:block}
+#help ul{margin:6px 0;padding-left:18px;font-size:14.5px}
+#size{position:absolute;pointer-events:none;color:#ffd98a;font:600 18px/1 Spectral,serif;text-shadow:0 0 8px #000;display:none}
+.loading{position:absolute;left:574px;top:330px;width:300px;text-align:center;color:#bfe3ff;font-size:16px;text-shadow:0 0 10px #000}
+.chips,.mhead,.mtools{display:none}
+@media (max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape){
+  .view{height:auto;overflow:visible}.view::before{display:none}
+  .stage{position:relative;left:0;top:0;width:100%;height:auto;transform:none!important;background:none;display:flex;flex-direction:column}
+  .mhead{display:block;order:-1;text-align:center;padding:14px 10px 6px;font:700 30px/1.05 "Cormorant Garamond",serif;color:#f0c46c;background:#0b0805}
+  .mhead small{display:block;font:600 12px/1.6 Spectral,serif;color:#bba98f;letter-spacing:.06em}
+  .hero{order:0}.mtools{order:1}.chips{order:2}#detail{order:3}#look{order:4}#inter{order:5}#teach{order:6}#think{order:7}#help{order:8}
+  .mtools{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin:12px 12px 0}
+  .mtools button{min-height:44px;padding:8px 14px;border-radius:22px;border:1px solid var(--edge);background:rgba(12,30,52,.9);color:#fff;font:600 14px Spectral,serif}
+  .mtools button.on{background:var(--gold);color:#241505}
+  .hero{position:relative;height:62vh;min-height:360px;max-height:620px;background:#0b0805 url(room.jpg) 50% 52%/auto 140% no-repeat;overflow:hidden}
+  .panel{position:relative;left:auto!important;top:auto!important;width:auto!important;height:auto!important;margin:12px}
+  .call,svg.lines,.tool,.tip{display:none!important}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 12px 0}
+  .chips button{min-height:44px;padding:8px 14px;border-radius:22px;border:1px solid var(--edge);background:rgba(12,30,52,.85);color:#fff;font:600 14px Spectral,serif}
+  .chips button.on{background:var(--gold);color:#241505}
+  #help{position:relative;display:none}
+  .vid{height:auto;aspect-ratio:16/10}.vset{position:relative;top:auto;margin-top:10px}
+  .loading{left:0;right:0;top:40%;width:auto}
+}
+@media (min-width:761px) and (min-aspect-ratio:3/4){.hero{position:absolute;inset:0}}
+@media (prefers-reduced-motion:reduce){.tip{transition:none}}
+@media (max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape){a.allx{position:static;display:block;width:max-content;margin:8px 10px 0;font-size:13px;padding:6px 10px}.mhead{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}a.allx{position:absolute;z-index:5;margin:0;left:6px;top:6px;font-size:12px;padding:5px 8px}}
+.allx{position:fixed;left:12px;top:12px;z-index:20;padding:7px 12px;border-radius:8px;background:rgba(12,30,52,.85);border:1px solid var(--edge);color:#eef5ff;text-decoration:none;font:600 14px/1 Spectral,serif}.allx:hover,.allx:focus-visible{background:rgba(40,80,130,.95);outline:none}
+.grow{margin-left:auto;flex:none;background:none;border:0;cursor:pointer;width:30px;height:30px;border-radius:6px;display:grid;place-items:center;padding:0}
+.grow svg{width:18px!important;height:18px!important;stroke:#dbeaff;fill:none;stroke-width:2}
+.grow:hover,.grow:focus-visible{background:rgba(255,255,255,.14);outline:none}
+.grow+.x{margin-left:2px}
+.more{background:none;border:0;padding:0;color:#ffd98a;font:600 13px/1.3 Spectral,serif;cursor:pointer;text-decoration:underline;text-underline-offset:2px}
+.more:hover,.more:focus-visible{color:#fff;outline:none}
+.panel{cursor:default}
+.reader{position:fixed;inset:0;z-index:50;display:grid;place-items:center;padding:3vh 3vw;background:rgba(4,8,14,.55)}
+.reader[hidden]{display:none}
+.rcard{width:min(880px,100%);max-height:94vh;display:flex;flex-direction:column;background:linear-gradient(180deg,rgba(26,58,92,.96),rgba(10,26,46,.97));border:1.5px solid var(--edge);border-radius:14px;box-shadow:0 0 40px rgba(80,160,255,.4)}
+.rhead{display:flex;align-items:center;gap:10px;padding:16px 20px 10px;border-bottom:1px solid rgba(120,186,255,.25)}
+.rhead h2{margin:0;font:600 clamp(24px,3.2vw,34px)/1.1 "Cormorant Garamond",Georgia,serif;color:#fff}
+.rhead .x{font-size:30px;width:42px;height:42px}
+.rbody{overflow:auto;padding:16px 24px 24px;font-size:clamp(16px,1.6vw,19px);line-height:1.6;color:#e3eefa}
+.rbody h3{margin:1.1em 0 .3em;font:600 clamp(20px,2.2vw,25px)/1.2 "Cormorant Garamond",serif;color:#ffd98a}
+.rbody p,.rbody ul{margin:.4em 0}.rbody li{margin:.35em 0}.rbody b{color:#fff}
+.rimg{float:right;width:min(34%,230px);margin:4px 0 12px 18px;border-radius:8px;border:1px solid rgba(255,255,255,.25)}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:2px 0 6px}
+.facts div{background:rgba(120,186,255,.1);border:1px solid rgba(120,186,255,.3);border-radius:8px;padding:8px 12px;font-size:.88em;line-height:1.4}
+.facts b{display:block;color:#ffd98a;font-size:.8em;letter-spacing:.08em;text-transform:uppercase}
+.rbody .src{font-size:.78em;color:#a9bdd2;margin-top:1.2em;clear:both}
+.rbody .irow{font-size:1em;padding:8px}.rbody .irow svg{width:30px;height:30px}
+.rbody #qs,.rbody ul.qs{padding-left:1.2em}
+@media (max-width:620px){.rimg{float:none;display:block;width:60%;margin:0 auto 12px}.facts{grid-template-columns:1fr}}
+@media (max-height:500px) and (orientation:landscape){
+  .stage{padding:6px 0 16px 56vw}
+  .hero{position:fixed!important;left:0;top:0;width:56vw;height:100vh!important;min-height:0!important;max-height:none!important;z-index:1}
+  a.allx{position:fixed!important;z-index:6}
+  .mtools{margin-top:4px}
+  .panel{margin:10px 10px 10px 12px}
+  .reader .rcard{max-height:96vh}
+}
+.vig{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 62% 58% at 50% 46%,transparent 55%,rgba(6,4,2,.5) 100%),url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");mix-blend-mode:normal}
+</style>
+</head>
+<body>
+<a class="allx" href="../">&larr; All exhibits</a>
+<div class="view" id="view">
+<div class="stage" id="stage">
+  <div class="mhead">WolfOS Spatial Archive Lab<small>Explore · Analyze · Interpret · Connect</small></div>
+  <div class="mtools"><button type="button" data-do="spin">Spin</button><button type="button" data-do="zoom">Zoom</button><button type="button" data-do="size">Real size</button><button type="button" data-do="help">Help</button></div>
+  <div class="hero" id="hero">
+    <canvas id="c" aria-label="3D scan of an inscribed Shang dynasty oracle bone by the British Library, rising from the archive desk. Drag to turn it."></canvas>
+    <div class="vig" aria-hidden="true"></div>
+    <svg class="lines" id="lines" viewBox="0 0 1448 1086" preserveAspectRatio="none"></svg>
+    <div class="loading" id="loading">Bringing the oracle bone up from the archive…</div>
+    <div id="size"></div>
+  </div>
+
+  <section class="panel" id="look">
+    <h2><svg viewBox="0 0 32 32"><path d="M4 12h24M6 12v13M11 12v13M16 12v13M21 12v13M26 12v13M3 27h26M5 12l11-7 11 7"/></svg>What am I looking at?<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
+    <div class="row"><img src="thumb.jpg" alt="Inscribed Shang oracle bone">
+      <div><h3>A Shang Oracle Bone (c. 1300–1050 BCE)</h3>
+      <p>A piece of animal bone used by the Shang kings to ask questions of their ancestors. The carved signs are among the earliest Chinese writing, and the ancestors of characters still used today. <button class="more" type="button" data-read="look">Read the full story &rsaquo;</button></p></div></div>
+  </section>
+
+  <section class="panel" id="inter">
+    <h2><svg viewBox="0 0 32 32"><path d="M13 17V6a2 2 0 0 1 4 0v8m0-1a2 2 0 0 1 4 0v2m0-1a2 2 0 0 1 4 0v6c0 5-3 8-8 8s-7-2-9-6l-3-5a2 2 0 0 1 3-2l3 3"/></svg>Student Interaction<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
+    <button class="irow" data-do="spin"><svg viewBox="0 0 24 24"><circle cx="10" cy="10" r="6"/><path d="M15 15l6 6"/></svg><span><b>Rotate &amp; Explore:</b> Turn it over to find the hollows on the back.</span></button>
+    <button class="irow" data-do="zoom"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/></svg><span><b>Zoom In:</b> Look closely at the carved characters on the front.</span></button>
+    <button class="irow" data-do="compare"><svg viewBox="0 0 24 24"><path d="M4 20 20 4M7 17l2 2M10 14l2 2M13 11l2 2M16 8l2 2"/></svg><span><b>Compare:</b> How is this writing like cuneiform and hieroglyphs?</span></button>
+    <button class="irow" data-do="context"><svg viewBox="0 0 24 24"><path d="M12 3 3 8l9 5 9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/></svg><span><b>Context:</b> Why would a king ask his ancestors questions?</span></button>
+  </section>
+
+  <section class="panel" id="teach">
+    <h2><svg viewBox="0 0 24 24" style="fill:#dbeaff;stroke:none"><path d="M3 7h12v10H3zM16 10l5-3v10l-5-3z"/></svg>Teacher Explainer<button class="x" id="tclose" aria-label="Close the teacher video">×</button></h2>
+    <div class="vid">
+      <img src="teacher.jpg" alt="Mr. Wolfinger">
+      <div class="vmsg" id="vmsg"><div><b>Coming soon</b><br>Mr. Wolfinger's explainer for this artifact is being recorded, with captions and other languages.</div></div>
+      <div class="vbar"><button id="play" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M6 4l14 8-14 8z"/></svg></button><span id="vlabel">Play video</span><span class="bar"><i></i></span>
+        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" fill="none" stroke="#fff" stroke-width="2"/><text x="6" y="16" font-size="8" fill="#fff" font-family="sans-serif">CC</text></svg>
+        <svg viewBox="0 0 24 24"><path d="M3 9h4l5-4v14l-5-4H3zM15 8a5 5 0 0 1 0 8M17 5a9 9 0 0 1 0 14" fill="none" stroke="#fff" stroke-width="2"/></svg>
+        <button id="vfull" aria-label="Full screen"><svg viewBox="0 0 24 24"><path d="M3 9V3h6M21 9V3h-6M3 15v6h6M21 15v6h-6" fill="none" stroke="#fff" stroke-width="2"/></svg></button></div>
+    </div>
+    <div class="vlinks" id="vlinks"></div>
+    <form class="vset" id="vset" hidden><label for="vurl">Try a YouTube link here (only on this computer):</label><div><input id="vurl" type="url" placeholder="https://youtu.be/..." autocomplete="off"><button type="submit">Try</button></div>
+      <p>To put it on the exhibit for everyone, tell Jarvis: <i>"Put this video on the Tut exhibit"</i> and paste the link.</p></form>
+  </section>
+
+  <section class="panel" id="think">
+    <h2><svg viewBox="0 0 32 32"><path d="M6 8h20a3 3 0 0 1 3 3v9a3 3 0 0 1-3 3H14l-6 5v-5H6a3 3 0 0 1-3-3v-9a3 3 0 0 1 3-3z"/></svg>Think Like a Historian<button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button></h2>
+    <ul id="qs">
+      <li>What kinds of questions do you think a king would ask his ancestors?</li>
+      <li>Oracle bones record the king's worries. What can they tell historians that monuments cannot?</li>
+      <li>Who controlled the divination, and how might that have strengthened the king's power?</li>
+      <li>Chinese characters today descend from these signs. Why might Chinese writing have lasted so long?</li>
+    </ul>
+  </section>
+
+  <section class="panel" id="detail" aria-live="polite"><h2><span id="dt"></span><button class="grow" type="button" aria-label="Make this card bigger" title="Make bigger"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg></button><button class="x" id="dclose" aria-label="Close">×</button></h2><div id="db"></div></section>
+  <section class="panel" id="help"><h2>How to use the Archive Lab<button class="x" id="hclose" aria-label="Close">×</button></h2>
+    <ul><li><b>Drag</b> the oracle bone to turn it. <b>Scroll</b> or pinch to zoom.</li><li><b>Click a label</b>, or click the oracle bone itself, to learn about that part.</li>
+    <li>Desk buttons: <b>spin</b>, <b>zoom</b>, <b>labels on/off</b>, <b>real size</b>, and this help.</li><li>This is a 3D scan made by the British Library of a small, broken fragment of bone.</li></ul>
+    <p style="font-size:13px;color:var(--dim);margin:6px 0 0">3D model: "Oracle Bone, Or 7694/1595" by the British Library (Sketchfab), CC BY. Photography: Neil McCowlen; modelling: Adi Keinan-Schoonbaert. Sources: D. N. Keightley, <i>Sources of Shang History</i> (1978); British Library, "Chinese oracle bone".</p></section>
+  <div class="chips" id="chips"></div>
+</div>
+</div>
+
+<div class="reader" id="reader" hidden role="dialog" aria-modal="true" aria-labelledby="rt"><div class="rcard"><div class="rhead"><h2 id="rt"></h2><button class="x" id="rclose" type="button" aria-label="Close">&times;</button></div><div class="rbody" id="rb"></div></div></div>
+<template id="deep-look">
+  <img class="rimg" src="thumb.jpg" alt="Inscribed Shang oracle bone">
+  <div class="facts">
+    <div><b>Made</b>about 1300&ndash;1050 BCE<br>late Shang dynasty, China</div>
+    <div><b>Material</b>animal bone<br>inscribed with a sharp tool</div>
+    <div><b>Collection</b>Couling-Chalfant collection<br>acquired in China in the early 1900s</div>
+    <div><b>Today</b>British Library, London<br>Or. 7694/1595</div>
+  </div>
+  <h3>Asking the ancestors</h3>
+  <p>Shang kings consulted their ancestors before almost every important decision: war, hunting, harvests, weather, illness, childbirth and sacrifices. A diviner prepared a turtle shell or the shoulder blade of an ox by carving rows of hollows into the back. Heat was then applied to a hollow until the bone cracked on the front with a sharp sound. The king or the diviner read the shape of the crack as the ancestors' answer.</p>
+  <h3>Writing it down</h3>
+  <p>Afterwards, scribes often carved the question, and sometimes the answer and what actually happened, into the bone beside the crack. These inscriptions are the earliest large body of Chinese writing. Many of their signs are recognisable ancestors of modern Chinese characters, so scholars can read much of what they say.</p>
+  <h3>Rediscovery</h3>
+  <p>For centuries, farmers near Anyang dug up old bones and sold them to pharmacies as "dragon bones" to be ground into medicine. In 1899 scholars recognised that the marks on them were ancient writing. Excavations at Anyang from 1928 onwards uncovered huge deposits, and well over 100,000 inscribed pieces are now known.</p>
+  <h3>What they reveal</h3>
+  <p>The historian David Keightley showed that oracle-bone inscriptions are the best evidence we have for how the Shang state worked: who the kings were, which enemies they fought, what crops they grew, and how they understood the spirit world. They also show that the king himself was the chief diviner, which linked his authority to his special relationship with the ancestors.</p>
+  <h3>Questions historians debate</h3>
+  <ul>
+    <li><b>Records or rituals?</b> The inscriptions record only what the king chose to ask. What important parts of Shang life might be missing?</li>
+    <li><b>Origins of writing.</b> Writing appears here already well developed. Did it begin earlier on materials that have not survived, such as bamboo or wood?</li>
+  </ul>
+  <p class="src">3D model: "Oracle Bone, Or 7694/1595" by the British Library on Sketchfab, CC BY (photography: Neil McCowlen; modelling: Adi Keinan-Schoonbaert). Sources: British Library, "Chinese oracle bone" (Or. 7694/1595); D. N. Keightley, <i>Sources of Shang History: The Oracle-Bone Inscriptions of Bronze Age China</i> (University of California Press, 1978); D. N. Keightley, <i>The Ancestral Landscape</i> (University of California, 2000); R. Thorp, <i>China in the Early Bronze Age: Shang Civilization</i> (University of Pennsylvania Press, 2006).</p>
+</template>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+{
+const SW = 1448, SH = 1086;
+// parts: where they sit on the model (front/side/back ray at u,v of its box), the label box on his layout, and the teaching text
+const PARTS = [
+  {"n": "Carved Characters", "s": "Some of the earliest Chinese writing.", "dir": "front", "u": 0.45, "v": 0.62, "box": [512, 150, 124, 108], "t": "The signs carved on the front record a divination: usually the date, the diviner's name and the question put to the ancestors. Many are early forms of characters still used in Chinese today."},
+  {"n": "Hollows on the Back", "s": "Heated to make the bone crack.", "dir": "back", "u": 0.5, "v": 0.5, "box": [868, 140, 160, 96], "t": "On the back, rows of oval and round hollows were carved to thin the bone. When heat was applied to a hollow, a crack appeared on the front, and its shape was read as the answer."},
+  {"n": "The Bone Itself", "s": "Most likely an ox shoulder blade.", "dir": "front", "u": 0.5, "v": 0.9, "box": [918, 300, 140, 96], "t": "Diviners used the flat shoulder blades of cattle and the undersides of turtle shells. This fragment comes from a larger bone that has broken over time."},
+  {"n": "Museum Number", "s": "Written by a modern collector or curator.", "dir": "front", "u": 0.6, "v": 0.42, "box": [452, 388, 124, 108], "t": "A small number written in ink on the bone is a modern catalogue mark, added after it entered the collection. It is not part of the ancient inscription."}
+];
+const EXTRA = {
+ "compare": [
+  "Compare",
+  "Compare oracle-bone writing with Sumerian cuneiform and Egyptian hieroglyphs. All three began with signs for words and added signs for sounds. Why might different civilizations have invented writing in similar ways?"
+ ],
+ "context": [
+  "Context",
+  "Around 1250 to 1046 BCE the late Shang kings ruled from Anyang in northern China. Their oracle bones record a world of ancestors, sacrifices and constant warfare with neighbouring peoples, until the Zhou overthrew the Shang around 1046 BCE."
+ ]
+};
+const $ = id => document.getElementById(id);
+const stage = $('stage'), hero = $('hero'), canvas = $('c'), lines = $('lines');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const mobile = () => matchMedia('(max-width:760px),(max-aspect-ratio:3/4),(max-height:500px) and (orientation:landscape)').matches;
+let scale = 1;
+function fit() {
+  if (mobile()) { stage.style.transform = ''; scale = 1; }
+  else { scale = Math.min(innerWidth / SW, innerHeight / SH); stage.style.transform = `scale(${scale}) translate(-50%,-50%)`; stage.style.transform = `translate(${-SW * scale / 2}px,${-SH * scale / 2}px) scale(${scale})`; }
+  size();
+}
+// label boxes on the layout
+for (const [i, p] of PARTS.entries()) if (p.box) {
+  const b = document.createElement('button'); b.type = 'button'; b.className = 'panel call'; b.dataset.i = i;
+  Object.assign(b.style, { left:p.box[0] + 'px', top:p.box[1] + 'px', width:p.box[2] + 'px', minHeight:p.box[3] + 'px' });
+  const t = document.createElement('b'); t.textContent = p.n; b.append(t, p.s); b.onclick = () => pick(i); stage.append(b); p.el = b;
+}
+$('chips').innerHTML = PARTS.map((p, i) => `<button type="button" data-i="${i}">${p.n}</button>`).join('');
+$('chips').querySelectorAll('button').forEach(b => b.onclick = () => pick(+b.dataset.i));
+// desk buttons, over the icons painted on his desk
+const TOOLS = [['spin', 'Spin', 486, 640], ['zoom', 'Zoom in', 602, 640], ['labels', 'Labels on/off', 718, 640], ['size', 'Real size', 834, 640], ['help', 'Help', 948, 640]];
+for (const [k, label, x, y] of TOOLS) { const b = document.createElement('button'); b.type = 'button'; b.className = 'tool'; b.dataset.do = k; b.setAttribute('aria-label', label);
+  b.style.left = x + 'px'; b.style.top = y + 'px'; const tip = document.createElement('span'); tip.className = 'tip'; tip.textContent = label; tip.style.left = x + 'px'; tip.style.top = y + 'px'; stage.append(b, tip); }
+stage.addEventListener('click', e => { const b = e.target.closest('[data-do]'); if (b) act(b.dataset.do, b); });
+
+// ---------- 3D ----------
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:true });
+renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.08; renderer.localClippingEnabled = true;
+const scene = new THREE.Scene();
+// CINEMATIC: reflections come from the library room itself; soft shadows on the glass; warm key, cool hologram under-light and rim
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture; scene.environmentIntensity = .75;
+new THREE.TextureLoader().load('room.jpg', t => { t.mapping = THREE.EquirectangularReflectionMapping; t.colorSpace = THREE.SRGBColorSpace; scene.environment = pmrem.fromEquirectangular(t).texture; scene.environmentIntensity = 1.35; t.dispose(); });
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap; renderer.toneMappingExposure = 1.14;
+const key = new THREE.DirectionalLight('#ffd9a8', 3.1); key.position.set(-1.9, 2.8, 2.2); key.castShadow = true;
+Object.assign(key.shadow.camera, { left:-1.3, right:1.3, top:1.8, bottom:-.4, near:.5, far:9 }); key.shadow.mapSize.set(1024, 1024); key.shadow.radius = 6; key.shadow.bias = -.0004; key.shadow.normalBias = .02; scene.add(key);
+const under = new THREE.PointLight('#5fb8ff', 1.6, 2.6, 2); under.position.set(0, .06, .55); scene.add(under);                // the hologram table lights the object from below
+const shadowCatch = new THREE.Mesh(new THREE.PlaneGeometry(3.2, 3.2), new THREE.ShadowMaterial({ opacity:.34 })); shadowCatch.rotation.x = -Math.PI / 2; shadowCatch.position.y = .001; shadowCatch.receiveShadow = true; scene.add(shadowCatch);
+const rim = new THREE.DirectionalLight('#8fd0ff', 2.6); rim.position.set(1.9, 1.4, -2.4); scene.add(rim);
+scene.add(new THREE.HemisphereLight('#ffe2bc', '#1a3550', .4));
+const fill = new THREE.DirectionalLight('#fff1dd', .75); fill.position.set(1.6, .9, 3.2); scene.add(fill);   // soft front fill so faces never fall into darkness
+const cam = new THREE.PerspectiveCamera(30, SW / SH, .01, 60);
+const controls = new OrbitControls(cam, canvas); controls.enableDamping = true; controls.enablePan = false;
+controls.minPolarAngle = Math.PI * .36; controls.maxPolarAngle = Math.PI * .53; controls.minDistance = 2.4; controls.maxDistance = 6.5;
+const OH = 1.0, TY = 0.5;
+const HOME = new THREE.Vector3(0, 0.78, 5.2);
+// the hologram beam the mask stands in
+const beamMat = new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.BackSide, uniforms:{ uT:{ value:0 }, uA:{ value:.6 } },
+  vertexShader:'varying vec2 vU;void main(){vU=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+  fragmentShader:'varying vec2 vU;uniform float uT,uA;void main(){float base=pow(1.-vU.y,2.2);float st=pow(abs(sin(vU.x*3.14159*38.+sin(vU.x*25.)*1.5)),18.)*.9+pow(abs(sin(vU.x*3.14159*11.-uT*.15)),40.)*.8;float a=base*uA*(.35+st*(1.-vU.y*.6));a*=.9+.1*sin(vU.y*60.-uT*2.);gl_FragColor=vec4(.45,.8,1.,a*.5);}' });
+const beam = new THREE.Mesh(new THREE.CylinderGeometry(.5, .78, 1.25, 48, 1, true), beamMat); beam.position.y = .62; scene.add(beam);
+// a glowing disc for phones, where his painted desk is not behind the mask
+function ringTex() { const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d'), m = 256;
+  const rg = g.createRadialGradient(m, m, 0, m, m, m); rg.addColorStop(0, 'rgba(120,200,255,.45)'); rg.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = rg; g.fillRect(0, 0, 512, 512);
+  g.strokeStyle = 'rgba(170,225,255,.8)'; [[.95, 3], [.78, 1.5], [.6, 2.5], [.42, 1]].forEach(([r, w]) => { g.lineWidth = w; g.beginPath(); g.arc(m, m, r * m * .98, 0, 7); g.stroke(); });
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; }
+const disc = new THREE.Mesh(new THREE.CircleGeometry(.85, 64), new THREE.MeshBasicMaterial({ map:ringTex(), transparent:true, blending:THREE.AdditiveBlending, depthWrite:false }));
+disc.rotation.x = -Math.PI / 2; disc.position.y = .003; scene.add(disc);
+const rings = [[.34, .018, 1, .9], [.5, .012, 1, .7], [.66, .01, .85, .55], [.8, .007, .6, .4]].map(([r, w, arc, op], i) => {
+  const m = new THREE.Mesh(new THREE.RingGeometry(r, r + w, 128, 1, 0, Math.PI * 2 * arc), new THREE.MeshBasicMaterial({ color:'#8fd4ff', transparent:true, opacity:op, blending:THREE.AdditiveBlending, depthWrite:false, side:THREE.DoubleSide }));
+  m.rotation.x = -Math.PI / 2; m.position.y = .004 + i * .002; m.userData.spd = (i % 2 ? -1 : 1) * (.12 + i * .05); scene.add(m); return m; });
+const pool = new THREE.Mesh(new THREE.CircleGeometry(.62, 64), new THREE.MeshBasicMaterial({ map:ringTex(), color:'#bfe6ff', transparent:true, opacity:.9, blending:THREE.AdditiveBlending, depthWrite:false }));
+pool.rotation.x = -Math.PI / 2; pool.position.y = .002; scene.add(pool);
+let mask = null, baseY = 0, rise = 0, spin = false, zoomed = false, ruler = null, anchors = [], cur = -1, fly = null;
+const clip = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
+function home() { cam.position.copy(HOME); controls.target.set(0, TY, 0); controls.update(); }
+function size() {
+  const m = mobile(); disc.visible = m;
+  if (m) { // phones: a window onto the same composition as the big screen, zoomed so the mask fills it and stands on the glass
+    const w = hero.clientWidth, h = hero.clientHeight; renderer.setPixelRatio(Math.min(devicePixelRatio, 2)); renderer.setSize(w, h, false);
+    const mh = Math.min(h * .5, w * .62 / .73), k = mh / 396, bx = w / 2 - 724 * k, by = Math.min(0, h * .8 - 590 * k);
+    hero.style.backgroundSize = `${SW * k}px ${SH * k}px`; hero.style.backgroundPosition = `${bx}px ${by}px`;
+    cam.aspect = SW / SH; cam.fov = 30; cam.setViewOffset(SW * k, SH * k, -bx, 150 * k - by, w, h); }
+  else { renderer.setPixelRatio(Math.min(2, devicePixelRatio * scale)); renderer.setSize(SW, SH, false); cam.aspect = SW / SH; cam.fov = 30; cam.setViewOffset(SW, SH, 0, 150, SW, SH); }
+  cam.updateProjectionMatrix();
+}
+addEventListener('resize', fit); fit(); home();
+
+async function load() {
+  const buf = await fetch('model.glb').then(r => { if (!r.ok) throw new Error('model ' + r.status); return r.arrayBuffer(); });
+  const cib = self.createImageBitmap;   // read the model's paint as <img>; a sealed page may refuse fetch() of its blobs
+  const gltf = await new Promise((res, rej) => { try { self.createImageBitmap = undefined; } catch (_) {} try { new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).parse(buf, '', res, rej); } finally { try { self.createImageBitmap = cib; } catch (_) {} } });
+  mask = gltf.scene; const box = new THREE.Box3().setFromObject(mask), sz = box.getSize(new THREE.Vector3()), s = OH / sz.y;
+  mask.scale.setScalar(s); baseY = -box.min.y * s + .01; mask.position.set(-(box.min.x + sz.x / 2) * s, baseY, -(box.min.z + sz.z / 2) * s);
+  mask.traverse(o => { if (o.isMesh) { o.castShadow = true; o.material.clipShadows = true; if ('envMapIntensity' in o.material) o.material.envMapIntensity = o.material.metalness > .5 ? 1.25 : .85; o.material.clippingPlanes = [clip]; o.material.emissive = new THREE.Color('#5ab8ff'); o.material.emissiveIntensity = 0; } });
+  scene.add(mask); mask.updateMatrixWorld(true); findAnchors(); $('loading').remove(); rise = reduce ? 1 : .0001;
+}
+const meshes = [];
+function findAnchors() {
+  mask.traverse(o => o.isMesh && meshes.push(o));
+  const box = new THREE.Box3().setFromObject(mask), mn = box.min, mx = box.max, rc = new THREE.Raycaster();
+  anchors = PARTS.map(p => { const y = mn.y + p.v * (mx.y - mn.y); let o, d;
+    if (p.dir === 'front') { o = new THREE.Vector3(mn.x + p.u * (mx.x - mn.x), y, mx.z + 1); d = new THREE.Vector3(0, 0, -1); }
+    else if (p.dir === 'back') { o = new THREE.Vector3(mx.x - p.u * (mx.x - mn.x), y, mn.z - 1); d = new THREE.Vector3(0, 0, 1); }
+    else { o = new THREE.Vector3(mx.x + 1, y, mn.z + p.u * (mx.z - mn.z)); d = new THREE.Vector3(-1, 0, 0); }
+    rc.set(o, d); const h = rc.intersectObjects(meshes, false)[0];
+    return { pt:h ? h.point.clone() : o.addScaledVector(d, 1), nrm:h && h.face ? h.face.normal.clone().transformDirection(h.object.matrixWorld) : d.clone().negate() }; });
+}
+// click the mask itself: the nearest labelled part
+const rc2 = new THREE.Raycaster(), ndc = new THREE.Vector2(); let down = null;
+canvas.addEventListener('pointerdown', e => down = [e.clientX, e.clientY]);
+canvas.addEventListener('pointerup', e => { if (!mask || !down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 6) return;
+  const r = canvas.getBoundingClientRect(); ndc.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
+  rc2.setFromCamera(ndc, cam); const h = rc2.intersectObjects(meshes, false)[0]; if (!h) return;
+  let best = 0, bd = 1e9; anchors.forEach((a, i) => { const d = a.pt.distanceTo(h.point); if (d < bd) { bd = d; best = i; } }); pick(best); });
+
+function show(title, text) { $('dt').textContent = title; $('db').innerHTML = ''; const p = document.createElement('p'); p.textContent = text; $('db').append(p);
+  $('detail').classList.add('on'); $('help').classList.remove('on'); if (mobile()) $('detail').scrollIntoView({ behavior:reduce ? 'auto' : 'smooth', block:'nearest' }); }
+function pick(i) { cur = i; const p = PARTS[i], a = anchors[i]; show(p.n, p.t);
+  document.querySelectorAll('.call').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+  document.querySelectorAll('#chips button').forEach(b => b.classList.toggle('on', +b.dataset.i === i));
+  if (!a) return; spin = false; tool('spin', false);
+  const dir = a.nrm.clone(); dir.y *= .3; dir.normalize(); const to = new THREE.Vector3(0, TY, 0).add(dir.multiplyScalar(zoomed ? 3.2 : 4.6)); to.y = Math.min(Math.max(to.y, .3), 1.4);
+  fly = { t:0, p0:cam.position.clone(), p1:to, q0:controls.target.clone(), q1:new THREE.Vector3(0, TY, 0) }; }
+function tool(k, on) { document.querySelectorAll(`[data-do="${k}"]`).forEach(b => b.classList.toggle('on', on)); }
+function act(k) {
+  if (k === 'spin') { spin = !spin; tool('spin', spin); }
+  else if (k === 'zoom') { zoomed = !zoomed; tool('zoom', zoomed); const v = cam.position.clone().sub(controls.target).setLength(zoomed ? 3.2 : 5.3); fly = { t:0, p0:cam.position.clone(), p1:controls.target.clone().add(v), q0:controls.target.clone(), q1:controls.target.clone() }; }
+  else if (k === 'labels') { stage.classList.toggle('hidecalls'); tool('labels', stage.classList.contains('hidecalls')); }
+  else if (k === 'size') { ruler = !ruler; tool('size', ruler); $('size').style.display = ruler ? 'block' : 'none'; }
+  else if (k === 'help') { $('help').classList.toggle('on'); tool('help', $('help').classList.contains('on')); }
+  else if (EXTRA[k]) show(...EXTRA[k]);
+}
+$('dclose').onclick = () => { $('detail').classList.remove('on'); cur = -1; document.querySelectorAll('.call.on,#chips .on').forEach(b => b.classList.remove('on')); };
+$('hclose').onclick = () => { $('help').classList.remove('on'); tool('help', false); };
+$('tclose').onclick = () => { $('teach').style.display = 'none'; };
+// ---- the teacher video: a YouTube link from exhibit.json (Jarvis writes it), shown where his face is
+const ytId = u => { const m = String(u || '').trim().match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/|v\/))([A-Za-z0-9_-]{11})/); return m ? m[1] : (/^[A-Za-z0-9_-]{11}$/.test(String(u || '').trim()) ? String(u).trim() : null); };
+let VID = null, vstart = 0;
+function setVideo(url, label) {
+  VID = ytId(url); vstart = 0; const t = String(url || '').match(/[?&#]t=(\d+)/); if (t) vstart = +t[1];
+  $('vlabel').textContent = VID ? (label || 'Play video') : 'Coming soon';
+  $('vlinks').innerHTML = ''; if (VID) { const a = document.createElement('a'); a.href = 'https://www.youtube.com/watch?v=' + VID; a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'Open on YouTube'; $('vlinks').append(a); }
+}
+function playVideo() {
+  if (!VID) { $('vmsg').classList.toggle('on'); return; }
+  const vid = document.querySelector('.vid'); vid.querySelectorAll('img,.vbar,.vmsg').forEach(el => el.style.display = 'none');
+  let f = vid.querySelector('iframe'); if (!f) { f = document.createElement('iframe'); vid.append(f); }
+  f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.title = 'Teacher explainer video';
+  f.referrerPolicy = 'strict-origin-when-cross-origin';
+  f.src = `https://www.youtube-nocookie.com/embed/${VID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&cc_load_policy=1` + (vstart ? '&start=' + vstart : '');
+}
+$('play').onclick = playVideo;
+document.querySelector('.vid img').onclick = playVideo; document.querySelector('.vid img').style.cursor = 'pointer';
+$('vfull').onclick = () => { const v = document.querySelector('.vid'); try { (v.requestFullscreen || v.webkitRequestFullscreen).call(v); } catch (_) {} };
+fetch('exhibit.json', { cache:'no-store' }).then(r => r.ok ? r.json() : {}).then(x => setVideo(x.video, x.video_label)).catch(() => setVideo(null));
+// teacher check: add #teacher to the address to try a link on this computer before telling Jarvis
+if (location.hash === '#teacher') { $('vset').hidden = false; $('vset').onsubmit = e => { e.preventDefault(); setVideo($('vurl').value); if (VID) playVideo(); else $('vlabel').textContent = 'That is not a YouTube link'; }; }
+$('qs').querySelectorAll('li').forEach(li => li.onclick = () => show('Think Like a Historian', li.textContent + ' Discuss it with a partner, then look at the oracle bone again for evidence.'));
+
+// READER: any card opens big; "What am I looking at?" opens its full story
+const reader = $('reader'); let lastFocus = null;
+function openReader(title, nodes) { lastFocus = document.activeElement; $('rt').textContent = title; const rb = $('rb'); rb.innerHTML = ''; rb.append(...nodes); rb.scrollTop = 0; reader.hidden = false; $('rclose').focus(); }
+function closeReader() { reader.hidden = true; if (lastFocus) try { lastFocus.focus(); } catch (_) {} }
+function grow(panel) {
+  if (panel.id === 'look') return openReader("A Shang Oracle Bone", [$('deep-look').content.cloneNode(true)]);
+  const title = panel.id === 'detail' ? $('dt').textContent : panel.querySelector('h2').textContent.trim();
+  const body = panel.id === 'detail' ? $('db') : panel.querySelector('h2').parentElement;
+  const nodes = [...body.children].filter(n => n.tagName !== 'H2').map(n => n.cloneNode(true));
+  openReader(title, nodes); }
+document.addEventListener('click', e => { const g = e.target.closest('.grow'); if (g) { e.stopPropagation(); grow(g.closest('.panel')); return; }
+  const m = e.target.closest('[data-read]'); if (m) { e.stopPropagation(); grow($(m.dataset.read)); } }, true);
+document.querySelectorAll('#look,#inter,#think,#detail').forEach(p => p.addEventListener('dblclick', e => { if (!e.target.closest('button,a,input')) grow(p); }));
+$('rclose').onclick = closeReader;
+reader.addEventListener('click', e => { if (e.target === reader) return closeReader(); const b = e.target.closest('[data-do]'); if (b) { closeReader(); act(b.dataset.do, b); } });
+addEventListener('keydown', e => { if (e.key === 'Escape' && !reader.hidden) closeReader(); });
+const ease = t => t < .5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2, v3 = new THREE.Vector3(), cp = new THREE.Vector3();
+let last = performance.now();
+let lastUse = performance.now(), driftPrev = 0; const UPY = new THREE.Vector3(0, 1, 0);
+for (const ev of ['pointerdown', 'wheel', 'keydown']) addEventListener(ev, () => { lastUse = performance.now(); driftPrev = 0; }, { passive:true });
+function frame(now) {
+  const dt = Math.min(.05, (now - last) / 1000); last = now; beamMat.uniforms.uT.value = now / 1000; disc.rotation.z += dt * .15; if (!reduce) rings.forEach(r => r.rotation.z += dt * r.userData.spd);
+  if (mask) { if (rise < 1) { rise = Math.min(1, rise + dt / 2.6); const e = ease(rise); mask.position.y = baseY - (1 - e);
+      mask.traverse(o => { if (o.isMesh) o.material.emissiveIntensity = (1 - e) * .9; }); beamMat.uniforms.uA.value = .6 + (1 - e) * .8; }
+    else mask.position.y = baseY; }
+  if (spin) { const p = cam.position.clone().sub(controls.target).applyAxisAngle(new THREE.Vector3(0, 1, 0), dt * .35); cam.position.copy(controls.target).add(p); }
+  if (fly) { fly.t = Math.min(1, fly.t + dt / (reduce ? .01 : 1.1)); const e = ease(fly.t); cam.position.lerpVectors(fly.p0, fly.p1, e); controls.target.lerpVectors(fly.q0, fly.q1, e); if (fly.t >= 1) fly = null; }
+  if (!reduce && !spin && !fly && rise >= 1 && now - lastUse > 6000) { const a = Math.sin((now - lastUse - 6000) / 1000 * .16) * .12, d = a - driftPrev; driftPrev = a;
+    cp.copy(cam.position).sub(controls.target).applyAxisAngle(UPY, d); cam.position.copy(controls.target).add(cp); }
+  controls.update(); renderer.render(scene, cam);
+  // leader lines from each label to its spot on the mask; hidden while that spot faces away
+  let svg = '';
+  if (mask && rise >= 1 && !mobile()) for (const [i, p] of PARTS.entries()) { if (!p.box) continue; const a = anchors[i];
+    v3.copy(a.pt).project(cam); const x = (v3.x * .5 + .5) * SW, y = (-v3.y * .5 + .5) * SH;
+    const facing = a.nrm.dot(cp.copy(cam.position).sub(a.pt).normalize()) > .2;
+    if (!facing) continue; const [bx, by, bw, bh] = p.box, ex = bx > x ? bx : bx + bw, ey = by + Math.min(bh, 70) / 2, on = i === cur;
+    svg += `<path d="M${ex} ${ey} L${(ex + x) / 2} ${ey} L${x} ${y}" stroke="${on ? '#ffe2a0' : '#bfe3ff'}" stroke-width="${on ? 2.2 : 1.5}" fill="none" opacity=".9"/><circle cx="${x}" cy="${y}" r="7" fill="${on ? '#e8b65a' : '#6ec0ff'}" stroke="#fff" stroke-width="2"/>`; }
+  if (ruler && mask) { const top = new THREE.Vector3(0.4, 1.01, 0), bot = new THREE.Vector3(0.4, 0.01, 0); top.project(cam); bot.project(cam);
+    const W = mobile() ? hero.clientWidth : SW, Hh = mobile() ? hero.clientHeight : SH;
+    const x1 = (top.x * .5 + .5) * W, y1 = (-top.y * .5 + .5) * Hh, y2 = (-bot.y * .5 + .5) * Hh;
+    if (!mobile()) svg += `<path d="M${x1} ${y1}V${y2}M${x1 - 10} ${y1}h20M${x1 - 10} ${y2}h20" stroke="#ffd98a" stroke-width="2"/>`;
+    Object.assign($('size').style, { left:(x1 + 12) + 'px', top:(y2 - 30) + 'px' }); $('size').textContent = "Bone fragment"; }
+  lines.innerHTML = svg;
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+load().catch(e => { $('loading').textContent = 'The 3D oracle bone could not load. Try reloading the page. (' + e.message + ')'; });
+}
+</script>
+</body>
+</html>

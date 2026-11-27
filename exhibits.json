@@ -61,5 +61,33 @@
     "era": "Indus Valley · about 2000 BCE",
     "blurb": "Study the most famous statue of the Indus cities, a civilization with no known palaces or royal tombs, and decide whether he was really a king.",
     "thumb": "priest-king/thumb.jpg"
+  },
+  {
+    "folder": "rosetta",
+    "title": "The Rosetta Stone",
+    "era": "Egypt · 196 BCE",
+    "blurb": "Find the three scripts on the stone that unlocked Egyptian hieroglyphs, and debate where it belongs today.",
+    "thumb": "rosetta/thumb.jpg"
+  },
+  {
+    "folder": "ramesses-ii",
+    "title": "Ramesses II, the \"Younger Memnon\"",
+    "era": "Egypt · about 1250 BCE",
+    "blurb": "Walk around a colossal granite statue of Egypt's most famous pharaoh and ask how rulers used monuments as propaganda.",
+    "thumb": "ramesses-ii/thumb.jpg"
+  },
+  {
+    "folder": "shang-ding",
+    "title": "A Shang Ritual Cauldron (Ding)",
+    "era": "China · 1200–1100 BCE",
+    "blurb": "Look for hidden faces on a bronze vessel used to feed the ancestors, and discover what bronze meant for Shang power.",
+    "thumb": "shang-ding/thumb.jpg"
+  },
+  {
+    "folder": "oracle-bone",
+    "title": "A Shang Oracle Bone",
+    "era": "China · about 1300–1050 BCE",
+    "blurb": "Turn over a bone the Shang kings cracked with fire to question their ancestors, carved with the earliest Chinese writing.",
+    "thumb": "oracle-bone/thumb.jpg"
   }
 ]
